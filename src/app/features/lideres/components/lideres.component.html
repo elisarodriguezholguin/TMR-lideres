@@ -1,0 +1,255 @@
+<!-- lideres.component.html -->
+<div class="lideres-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">Líderes</h1>
+    <div class="header-actions">
+      <button class="btn btn-outline" (click)="descargar()">
+        <span class="material-icons">download</span>
+        Descargar
+      </button>
+      <button class="btn btn-primary" (click)="abrirFormulario()">
+        <span class="material-icons">add</span>
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <!-- Cards / Frames de resumen -->
+  <div class="cards-row">
+    <div class="summary-card">
+      <div class="card-icon">
+        <span class="material-icons">group</span>
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalInternos }}</span>
+        <span class="card-label">Internos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Interno')">
+        <span class="material-icons">filter_list</span>
+      </button>
+    </div>
+
+    <div class="summary-card">
+      <div class="card-icon card-icon--external">
+        <span class="material-icons">groups</span>
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalExternos }}</span>
+        <span class="card-label">Externos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Externo')">
+        <span class="material-icons">filter_list</span>
+      </button>
+    </div>
+
+    <div class="summary-card">
+      <div class="card-icon card-icon--inactive">
+        <span class="material-icons">person_off</span>
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalInactivos }}</span>
+        <span class="card-label">Inactivos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
+        <span class="material-icons">filter_list</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Barra de búsqueda y filtros -->
+  <div class="search-bar">
+    <div class="search-input-wrapper">
+      <span class="material-icons search-icon">search</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar por nombre, código..."
+        [(ngModel)]="busqueda"
+        (input)="aplicarFiltros()"
+      />
+    </div>
+    <div class="filter-chips">
+      <button
+        class="chip"
+        [class.chip--active]="estadoFiltro === ''"
+        (click)="filtrarEstado('')"
+      >Todos</button>
+      <button
+        class="chip"
+        [class.chip--active]="estadoFiltro === 'Activo'"
+        (click)="filtrarEstado('Activo')"
+      >Activo</button>
+      <button
+        class="chip"
+        [class.chip--active]="estadoFiltro === 'Inactivo'"
+        (click)="filtrarEstado('Inactivo')"
+      >Inactivo</button>
+    </div>
+  </div>
+
+  <!-- Tabla de Líderes -->
+  <div class="table-wrapper">
+    <table class="lideres-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Tipo</th>
+          <th>Nombre</th>
+          <th>Cliente</th>
+          <th>Correo electrónico</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lider of lideresPaginados">
+          <td>{{ lider.codigo }}</td>
+          <td>{{ lider.tipo }}</td>
+          <td>{{ lider.nombre }}</td>
+          <td>{{ lider.cliente }}</td>
+          <td>{{ lider.correo }}</td>
+          <td>{{ lider.telefono }}</td>
+          <td>
+            <span class="badge" [class.badge--activo]="lider.estado === 'Activo'" [class.badge--inactivo]="lider.estado !== 'Activo'">
+              {{ lider.estado }}
+            </span>
+          </td>
+          <td>
+            <button class="action-btn" [matMenuTriggerFor]="menu">
+              <span class="material-icons">more_vert</span>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editarLider(lider)">
+                <span class="material-icons">edit</span> Editar
+              </button>
+              <button mat-menu-item (click)="eliminarLider(lider)">
+                <span class="material-icons">delete</span> Eliminar
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+        <tr *ngIf="lideresFiltrados.length === 0">
+          <td colspan="8" class="empty-state">No se encontraron líderes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-bar">
+    <span class="pagination-info">
+      Mostrando registros del {{ rangoInicio }} al {{ rangoFin }} de {{ lideresFiltrados.length }}
+    </span>
+    <div class="pagination-controls">
+      <button class="page-btn" (click)="irPagina(1)" [disabled]="paginaActual === 1">
+        <span class="material-icons">first_page</span>
+      </button>
+      <button class="page-btn" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <button
+        *ngFor="let p of paginas"
+        class="page-btn page-number"
+        [class.page-btn--active]="p === paginaActual"
+        (click)="irPagina(p)"
+      >{{ p }}</button>
+      <button class="page-btn" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
+        <span class="material-icons">chevron_right</span>
+      </button>
+      <button class="page-btn" (click)="irPagina(totalPaginas)" [disabled]="paginaActual === totalPaginas">
+        <span class="material-icons">last_page</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== MODAL / FORM CREAR/EDITAR LÍDER ===== -->
+<div class="modal-overlay" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">{{ modoEdicion ? 'Editar Líder' : 'Agregar Líder' }}</h2>
+      <button class="modal-close" (click)="cerrarFormulario()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form [formGroup]="liderForm" (ngSubmit)="guardarLider()">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Código *</label>
+            <input type="text" class="form-input" formControlName="codigo" placeholder="Ej. 001" />
+            <span class="form-error" *ngIf="liderForm.get('codigo')?.invalid && liderForm.get('codigo')?.touched">
+              Campo requerido
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo *</label>
+            <select class="form-input" formControlName="tipo">
+              <option value="">Seleccionar...</option>
+              <option value="Interno">Interno</option>
+              <option value="Externo">Externo</option>
+            </select>
+            <span class="form-error" *ngIf="liderForm.get('tipo')?.invalid && liderForm.get('tipo')?.touched">
+              Campo requerido
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group--full">
+            <label class="form-label">Nombre completo *</label>
+            <input type="text" class="form-input" formControlName="nombre" placeholder="Nombre y apellido" />
+            <span class="form-error" *ngIf="liderForm.get('nombre')?.invalid && liderForm.get('nombre')?.touched">
+              Campo requerido
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group--full">
+            <label class="form-label">Cliente</label>
+            <input type="text" class="form-input" formControlName="cliente" placeholder="Nombre del banco o institución" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Correo electrónico *</label>
+            <input type="email" class="form-input" formControlName="correo" placeholder="correo@ejemplo.com" />
+            <span class="form-error" *ngIf="liderForm.get('correo')?.invalid && liderForm.get('correo')?.touched">
+              Correo inválido
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" class="form-input" formControlName="telefono" placeholder="0999999999" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Estado *</label>
+            <select class="form-input" formControlName="estado">
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" (click)="cerrarFormulario()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="liderForm.invalid">
+            {{ modoEdicion ? 'Guardar cambios' : 'Agregar líder' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
