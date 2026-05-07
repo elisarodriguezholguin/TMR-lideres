@@ -2,8 +2,14 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'lideres',
+    pathMatch: 'full'
+  },
+  {
     path: 'lideres',
-    loadChildren: () =>
-      import('./features/lideres/lideres-module').then(m => m.LideresModule)
+    loadComponent: () =>
+      import('./features/lideres/components/lideres.component')
+        .then(m => m.LideresComponent)
   }
 ];
