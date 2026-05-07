@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { ModalLider } from './modal-lider/modal-lider';
+import { ModalDetalleLider } from './modal-detalle-lider/modal-detalle-lider';
 export interface Lider {
   codigo: string;
   tipo: 'Interno' | 'Externo';
@@ -26,7 +27,9 @@ export interface Lider {
     ReactiveFormsModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    ModalLider,
+    ModalDetalleLider
   ],
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
@@ -35,50 +38,52 @@ export class LideresComponent implements OnInit {
 
   // ── Data ───────────────────────────────────────────────
   lideres: Lider[] = [
-    { codigo: '001', tipo: 'Externo', nombre: 'Valeria Pazmiño',    cliente: 'Banco Guayaquil',     correo: 'valeria.pazmino@bancoguayaquil.fin.ec', telefono: '0986473829', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Interno', nombre: 'Ricardo Molina',     cliente: 'Banco Pichincha',     correo: 'ricardo.molina@gmail.com.ec',           telefono: '0992783645', estado: 'Inactivo' },
-    { codigo: '001', tipo: 'Externo', nombre: 'Samantha Salcedo',   cliente: 'Banco Bolivariano',   correo: 'samantha.salcedo@hotmail.com.ec',        telefono: '0989374652', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Interno', nombre: 'Daniel Erazo',       cliente: 'Produbanco',          correo: 'daniel.erazo@pichincha.com.ec',          telefono: '0997456321', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Externo', nombre: 'Fernanda Benavides', cliente: 'Banco del Austro',    correo: 'fernanda.ocana@lojanos.com.ec',          telefono: '0982345678', estado: 'Inactivo' },
-    { codigo: '001', tipo: 'Interno', nombre: 'Carlos Iturralde',   cliente: 'Banco Internacional', correo: 'carlos.iturralde@quito.gob.ec',          telefono: '0995678901', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Externo', nombre: 'María Guzmán',       cliente: 'Banco Solidario',     correo: 'maria.guzman@cuenca.edu.ec',             telefono: '0987654321', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Interno', nombre: 'Luis Yánez',         cliente: 'Banco ProCredit',     correo: 'luis.yanez@espol.edu.ec',               telefono: '0999887766', estado: 'Inactivo' },
-    { codigo: '001', tipo: 'Interno', nombre: 'Luis Yánez',         cliente: 'Citibank Ecuador',    correo: 'luis.yanez@espol.edu.ec',               telefono: '0999887766', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Externo', nombre: 'Ana Torres',         cliente: 'BanEcuador',          correo: 'ana.torres@banecuador.fin.ec',           telefono: '0978564321', estado: 'Activo'   },
-    { codigo: '001', tipo: 'Interno', nombre: 'Jorge Peña',         cliente: 'Banco del Pacífico',  correo: 'jorge.pena@pacifico.fin.ec',             telefono: '0988776655', estado: 'Inactivo' },
+    { codigo: '001', tipo: 'Externo', nombre: 'Valeria Pazmiño', cliente: 'Banco Guayaquil', correo: 'valeria.pazmino@bancoguayaquil.fin.ec', telefono: '0986473829', estado: 'Activo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Ricardo Molina', cliente: 'Banco Pichincha', correo: 'ricardo.molina@gmail.com.ec', telefono: '0992783645', estado: 'Inactivo' },
+    { codigo: '001', tipo: 'Externo', nombre: 'Samantha Salcedo', cliente: 'Banco Bolivariano', correo: 'samantha.salcedo@hotmail.com.ec', telefono: '0989374652', estado: 'Activo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Daniel Erazo', cliente: 'Produbanco', correo: 'daniel.erazo@pichincha.com.ec', telefono: '0997456321', estado: 'Activo' },
+    { codigo: '001', tipo: 'Externo', nombre: 'Fernanda Benavides', cliente: 'Banco del Austro', correo: 'fernanda.ocana@lojanos.com.ec', telefono: '0982345678', estado: 'Inactivo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Carlos Iturralde', cliente: 'Banco Internacional', correo: 'carlos.iturralde@quito.gob.ec', telefono: '0995678901', estado: 'Activo' },
+    { codigo: '001', tipo: 'Externo', nombre: 'María Guzmán', cliente: 'Banco Solidario', correo: 'maria.guzman@cuenca.edu.ec', telefono: '0987654321', estado: 'Activo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Luis Yánez', cliente: 'Banco ProCredit', correo: 'luis.yanez@espol.edu.ec', telefono: '0999887766', estado: 'Inactivo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Luis Yánez', cliente: 'Citibank Ecuador', correo: 'luis.yanez@espol.edu.ec', telefono: '0999887766', estado: 'Activo' },
+    { codigo: '001', tipo: 'Externo', nombre: 'Ana Torres', cliente: 'BanEcuador', correo: 'ana.torres@banecuador.fin.ec', telefono: '0978564321', estado: 'Activo' },
+    { codigo: '001', tipo: 'Interno', nombre: 'Jorge Peña', cliente: 'Banco del Pacífico', correo: 'jorge.pena@pacifico.fin.ec', telefono: '0988776655', estado: 'Inactivo' },
   ];
 
   lideresFiltrados: Lider[] = [];
   lideresPaginados: Lider[] = [];
 
   // ── Filtros ────────────────────────────────────────────
-  busqueda     = '';
-  tipoFiltro   = '';
+  busqueda = '';
+  tipoFiltro = '';
   estadoFiltro = '';
 
   // ── Paginación ─────────────────────────────────────────
-  paginaActual  = 1;
-  porPagina     = 10;
-  totalPaginas  = 1;
+  paginaActual = 1;
+  porPagina = 10;
+  totalPaginas = 1;
   paginas: number[] = [];
 
   // ── Formulario ─────────────────────────────────────────
   mostrarFormulario = false;
-  modoEdicion       = false;
+  mostrarDetalle = false;
+  liderSeleccionado: any = null;
+  modoEdicion = false;
   liderEditando: Lider | null = null;
   liderForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.liderForm = this.fb.group({
-      codigo:   ['', Validators.required],
-      tipo:     ['', Validators.required],
-      nombre:   ['', Validators.required],
-      cliente:  [''],
-      correo:   ['', [Validators.required, Validators.email]],
+      codigo: ['', Validators.required],
+      tipo: ['', Validators.required],
+      nombre: ['', Validators.required],
+      cliente: [''],
+      correo: ['', [Validators.required, Validators.email]],
       telefono: [''],
-      estado:   ['Activo', Validators.required],
+      estado: ['Activo', Validators.required],
     });
 
     this.aplicarFiltros();
@@ -127,7 +132,7 @@ export class LideresComponent implements OnInit {
         l.correo.toLowerCase().includes(texto) ||
         l.cliente.toLowerCase().includes(texto);
 
-      const matchTipo   = !this.tipoFiltro   || l.tipo   === this.tipoFiltro;
+      const matchTipo = !this.tipoFiltro || l.tipo === this.tipoFiltro;
       const matchEstado = !this.estadoFiltro || l.estado === this.estadoFiltro;
 
       return matchTexto && matchTipo && matchEstado;
@@ -140,7 +145,7 @@ export class LideresComponent implements OnInit {
   }
 
   calcularPaginas(): void {
-    const max    = Math.min(this.totalPaginas, 5);
+    const max = Math.min(this.totalPaginas, 5);
     const inicio = Math.max(1, Math.min(this.paginaActual - 2, this.totalPaginas - max + 1));
     this.paginas = Array.from({ length: max }, (_, i) => inicio + i);
   }
@@ -165,19 +170,31 @@ export class LideresComponent implements OnInit {
   }
 
   // ── Modal / Form ───────────────────────────────────────
-  abrirFormulario(): void {
-    this.modoEdicion = false;
-    this.liderEditando = null;
-    this.liderForm.reset({ estado: 'Activo' });
-    this.mostrarFormulario = true;
+  abrirFormulario() {
+  console.log('BOTON FUNCIONA');
+  this.mostrarFormulario = true;
+}
+
+verLider(lider: any) {
+
+  console.log('VER MAS FUNCIONA');
+
+  this.liderSeleccionado = lider;
+
+  this.mostrarDetalle = true;
+
+}
+
+  cerrarDetalle(): void {
+    this.mostrarDetalle = false;
+    this.liderSeleccionado = null;
   }
 
-  editarLider(lider: Lider): void {
-    this.modoEdicion = true;
-    this.liderEditando = lider;
-    this.liderForm.patchValue(lider);
-    this.mostrarFormulario = true;
-  }
+ editarLider(lider: any) {
+  console.log('EDITAR FUNCIONA');
+  this.modoEdicion = true;
+  this.mostrarFormulario = true;
+}
 
   cerrarFormulario(): void {
     this.mostrarFormulario = false;

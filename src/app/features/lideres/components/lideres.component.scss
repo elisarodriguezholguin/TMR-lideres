@@ -284,18 +284,15 @@ $hover-row:    rgba(#163572, 0.04);
   border-collapse: collapse;
   font-size: 14px;
 
- thead {
+   thead {
     background: $white;
-    border-bottom: 2px solid $border;
 
     th {
-      padding: 13px 16px;
+      padding: 11px 14px;
       text-align: left;
-      font-weight: 500;
-      color: $text-light;
-      font-size: 13px;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
+      font-weight: 600;
+      color: $text-mid;
+      border-bottom: 2px solid $border;
     }
   }
 

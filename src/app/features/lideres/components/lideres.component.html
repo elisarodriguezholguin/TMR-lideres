@@ -120,11 +120,11 @@
               <span class="material-icons">more_vert</span>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="editarLider(lider)">
-                <span class="material-icons">edit</span> Editar
+              <button mat-menu-item (click)="verLider(lider)">
+                👁 Ver más
               </button>
-              <button mat-menu-item (click)="eliminarLider(lider)">
-                <span class="material-icons">delete</span> Eliminar
+              <button mat-menu-item (click)="editarLider(lider)">
+                ✏️ Editar
               </button>
             </mat-menu>
           </td>
@@ -158,81 +158,12 @@
       </button>
     </div>
   </div>
-
 </div>
-
-<!-- MODAL -->
-<div class="modal-overlay" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
-  <div class="modal-card" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h2 class="modal-title">{{ modoEdicion ? 'Editar Líder' : 'Agregar Líder' }}</h2>
-      <button class="modal-close" (click)="cerrarFormulario()">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="liderForm" (ngSubmit)="guardarLider()">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Código *</label>
-            <input type="text" class="form-input" formControlName="codigo" placeholder="Ej. 001" />
-            <span class="form-error" *ngIf="liderForm.get('codigo')?.invalid && liderForm.get('codigo')?.touched">Campo
-              requerido</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Tipo *</label>
-            <select class="form-input" formControlName="tipo">
-              <option value="">Seleccionar...</option>
-              <option value="Interno">Interno</option>
-              <option value="Externo">Externo</option>
-            </select>
-            <span class="form-error" *ngIf="liderForm.get('tipo')?.invalid && liderForm.get('tipo')?.touched">Campo
-              requerido</span>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group form-group--full">
-            <label class="form-label">Nombre completo *</label>
-            <input type="text" class="form-input" formControlName="nombre" placeholder="Nombre y apellido" />
-            <span class="form-error" *ngIf="liderForm.get('nombre')?.invalid && liderForm.get('nombre')?.touched">Campo
-              requerido</span>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group form-group--full">
-            <label class="form-label">Cliente</label>
-            <input type="text" class="form-input" formControlName="cliente"
-              placeholder="Nombre del banco o institución" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Correo electrónico *</label>
-            <input type="email" class="form-input" formControlName="correo" placeholder="correo@ejemplo.com" />
-            <span class="form-error" *ngIf="liderForm.get('correo')?.invalid && liderForm.get('correo')?.touched">Correo
-              inválido</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Teléfono</label>
-            <input type="tel" class="form-input" formControlName="telefono" placeholder="0999999999" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Estado *</label>
-            <select class="form-input" formControlName="estado">
-              <option value="Activo">Activo</option>
-              <option value="Inactivo">Inactivo</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="cerrarFormulario()">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="liderForm.invalid">
-            {{ modoEdicion ? 'Guardar cambios' : 'Agregar líder' }}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<app-modal-lider
+  [mostrarFormulario]="mostrarFormulario"
+  [modoEdicion]="modoEdicion">
+</app-modal-lider>
+<app-modal-detalle-lider
+  *ngIf="mostrarDetalle"
+  [lider]="liderSeleccionado">
+</app-modal-detalle-lider>
