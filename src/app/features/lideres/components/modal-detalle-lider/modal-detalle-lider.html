@@ -1,14 +1,57 @@
-<div class="detalle-overlay">
+<div class="detalle-overlay" (click)="cerrar()">
+  <div class="detalle-card" (click)="$event.stopPropagation()">
 
-  <div class="detalle-card">
+    <!-- Header -->
+    <div class="detalle-header">
+      <div class="detalle-codigo">{{ lider?.numero }}</div>
+      <button class="detalle-close" (click)="cerrar()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
 
-    <h2>Detalle Líder</h2>
-    <img src="assets/icons/user.svg" width="20">
+    <!-- Nombre y estado -->
+    <div class="detalle-nombre-row">
+      <h2 class="detalle-nombre">{{ lider?.nombre }}</h2>
+      <span class="badge" [class.badge--activo]="lider?.estado === 'Activo'"
+        [class.badge--inactivo]="lider?.estado !== 'Activo'">
+        {{ lider?.estado }}
+      </span>
+    </div>
 
-    <p>Nombre: {{ lider?.nombre }}</p>
+    <!-- Tipo y cliente -->
+    <div class="detalle-info-row">
+      <div class="detalle-info-item">
+        <img src="icons/user.svg" class="detalle-icon" />
+        <span>{{ lider?.tipo }}</span>
+      </div>
+      <div class="detalle-info-item">
+        <span class="material-icons detalle-icon-mat">business</span>
+        <span>{{ lider?.cliente }}</span>
+      </div>
+    </div>
 
-    <p>Correo: {{ lider?.correo }}</p>
+    <!-- Datos de contacto -->
+    <div class="detalle-seccion-titulo">
+      <span class="detalle-linea-azul"></span>
+      Datos de contacto
+    </div>
+
+    <div class="detalle-contacto-grid">
+      <div class="detalle-contacto-item">
+        <span class="detalle-contacto-label">
+          <img src="icons/email-svgrepo-com.svg" class="detalle-icon-sm" />
+          Correo electrónico
+        </span>
+        <span class="detalle-contacto-valor azul">{{ lider?.correo }}</span>
+      </div>
+      <div class="detalle-contacto-item">
+        <span class="detalle-contacto-label">
+          <img src="icons/phone-svgrepo-com.svg" class="detalle-icon-sm" />
+          Teléfono
+        </span>
+        <span class="detalle-contacto-valor azul">{{ lider?.telefono }}</span>
+      </div>
+    </div>
 
   </div>
-
 </div>

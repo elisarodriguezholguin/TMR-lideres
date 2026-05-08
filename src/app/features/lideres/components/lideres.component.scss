@@ -124,42 +124,43 @@ $hover-row:    rgba(#163572, 0.04);
 // ── Cards ──────────────────────────────────────────────────
 .cards-row {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   margin-bottom: 24px;
   justify-content: flex-start;
+  padding-left: 3px;
 }
 
 .summary-card {
-  width: 200px;
-  flex: 0 0 200px;
+  width: 204px;
+  height: 84px;
+  flex: 0 0 204px;
   background: $white;
-  border-radius: 12px;
-  border: 1px solid $border;
+  border-radius: 15px;
+  border: 1px solid #E5E5E5;
   padding: 16px 20px;
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 0 0 rgba(0,0,0,0.05);
   transition: box-shadow 0.2s;
+  box-sizing: border-box;
 
   &:hover { box-shadow: 0 4px 14px rgba($primary, 0.12); }
 }
 
 .card-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   background: rgba($primary, 0.10);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $primary;
   flex-shrink: 0;
 
-  .material-icons { font-size: 22px; }
-
-  &--external { background: rgba($primary-dark, 0.10); color: $primary-dark; }
-  &--inactive  { background: rgba($inactivo, 0.10);    color: $inactivo;     }
+  &--external { background: rgba($primary, 0.10); }
+  &--inactive  { background: rgba($primary, 0.10); }
 }
 
 .card-info {
@@ -201,13 +202,15 @@ $hover-row:    rgba(#163572, 0.04);
 .search-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin-bottom: 18px;
+  width: 100%;
 }
 
 .search-input-wrapper {
   position: relative;
-  flex: 1;
+  width: 392px;
+  flex: 0 0 392px;
 }
 
 .search-icon {
@@ -222,9 +225,10 @@ $hover-row:    rgba(#163572, 0.04);
 
 .search-input {
   width: 100%;
-  padding: 10px 14px 10px 40px;
-  border: 1.5px solid $border;
-  border-radius: 8px;
+  height: 40px;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid $border;
+  border-radius: 6px;
   font-size: 14px;
   background: $white;
   color: $text-dark;
@@ -243,29 +247,38 @@ $hover-row:    rgba(#163572, 0.04);
   position: relative;
   display: flex;
   align-items: center;
+  width: 88px;
+  flex: 0 0 88px;
 }
 
 .estado-icon {
   position: absolute;
-  left: 10px;
+  left: 8px;
   color: $text-light;
-  font-size: 18px;
+  font-size: 13px;
   pointer-events: none;
+}
+.estado-icon-img {
+  position: absolute;
+  left: 8px;
+  width: 13.33px;
+  height: 13.33px;
+  pointer-events: none;
+  filter: invert(50%);
 }
 
 .estado-select {
-  padding: 10px 30px 10px 34px;
-  border: 1.5px solid $border;
-  border-radius: 20px;
-  font-size: 14px;
+  width: 88px;
+  height: 40px;
+  padding: 10px 10px 10px 28px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  font-size: 13px;
   background: $white;
   color: $text-mid;
   outline: none;
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23163572' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
   transition: border-color 0.18s;
 
   &:focus { border-color: $primary; }
@@ -284,17 +297,19 @@ $hover-row:    rgba(#163572, 0.04);
   border-collapse: collapse;
   font-size: 14px;
 
-   thead {
-    background: $white;
+thead {
+  background: $white;
+  border-bottom: 2px solid $border;
 
-    th {
-      padding: 11px 14px;
-      text-align: left;
-      font-weight: 600;
-      color: $text-mid;
-      border-bottom: 2px solid $border;
-    }
+  th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #737373;
+    font-size: 14px;
+    white-space: nowrap;
   }
+}
 
   tbody {
     tr {
@@ -306,10 +321,11 @@ $hover-row:    rgba(#163572, 0.04);
     }
 
     td {
-      padding: 13px 16px;
-      color: $text-dark;
-      vertical-align: middle;
-    }
+  padding: 13px 16px;
+  color: #737373;
+  font-weight: 400;
+  vertical-align: middle;
+}
   }
 }
 
@@ -318,28 +334,26 @@ $hover-row:    rgba(#163572, 0.04);
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
+  color: #737373;
 
   &::before {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    flex-shrink: 0;
   }
 
   &--activo {
-    background: rgba($activo, 0.10);
-    color: darken($activo, 10%);
+    background: transparent;
     &::before { background: $activo; }
   }
 
   &--inactivo {
-    background: rgba($inactivo, 0.10);
-    color: darken($inactivo, 10%);
-    &::before { background: $inactivo; }
+    background: transparent;
+    &::before { background: #737373; }
   }
 }
 
@@ -536,6 +550,29 @@ select.form-input {
   margin-top: 8px;
   padding-top: 16px;
   border-top: 1px solid $border;
+}
+
+// ── Responsive ─────────────────────────────────────────────
+// ── SVG Icons ──────────────────────────────────────────────
+.card-svg {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(15%) sepia(61%) saturate(1200%) hue-rotate(203deg) brightness(95%);
+}
+
+.card-svg-arrow {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  filter: brightness(0) saturate(100%) invert(15%) sepia(61%) saturate(1200%) hue-rotate(203deg) brightness(95%);
+}
+
+.filter-svg {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(15%) sepia(61%) saturate(1200%) hue-rotate(203deg) brightness(95%);
 }
 
 // ── Responsive ─────────────────────────────────────────────

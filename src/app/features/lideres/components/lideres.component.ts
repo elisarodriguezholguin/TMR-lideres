@@ -175,14 +175,9 @@ export class LideresComponent implements OnInit {
   this.mostrarFormulario = true;
 }
 
-verLider(lider: any) {
-
-  console.log('VER MAS FUNCIONA');
-
-  this.liderSeleccionado = lider;
-
+verLider(lider: Lider, numero: number): void {
+  this.liderSeleccionado = { ...lider, numero };
   this.mostrarDetalle = true;
-
 }
 
   cerrarDetalle(): void {

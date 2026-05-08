@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal-detalle-lider',
@@ -9,7 +9,10 @@ import { Component, Input } from '@angular/core';
   styleUrl: './modal-detalle-lider.scss'
 })
 export class ModalDetalleLider {
-
   @Input() lider: any;
+  @Output() cerrarModal = new EventEmitter<void>();
 
+  cerrar() {
+    this.cerrarModal.emit();
+  }
 }

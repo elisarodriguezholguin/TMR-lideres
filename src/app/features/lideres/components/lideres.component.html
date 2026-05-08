@@ -28,46 +28,48 @@
   </div>
 
   <!-- Cards / Frames de resumen -->
-  <div class="cards-row">
-    <div class="summary-card">
-      <div class="card-icon">
-        <span class="material-icons">group</span>
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalInternos }}</span>
-        <span class="card-label">Internos</span>
-      </div>
-      <button class="card-filter-btn" (click)="filtrarPor('Interno')">
-        <span class="material-icons">filter_list</span>
-      </button>
+  <!-- Cards / Frames de resumen -->
+<div class="cards-row">
+  <div class="summary-card">
+    <div class="card-icon">
+      <img src="icons/user.svg" class="card-svg" />
     </div>
-
-    <div class="summary-card">
-      <div class="card-icon card-icon--external">
-        <span class="material-icons">groups</span>
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalExternos }}</span>
-        <span class="card-label">Externos</span>
-      </div>
-      <button class="card-filter-btn" (click)="filtrarPor('Externo')">
-        <span class="material-icons">filter_list</span>
-      </button>
+    <div class="card-info">
+      <span class="card-number">{{ totalInternos }}</span>
+      <span class="card-label">Internos</span>
     </div>
-
-    <div class="summary-card">
-      <div class="card-icon card-icon--inactive">
-        <span class="material-icons">person_off</span>
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalInactivos }}</span>
-        <span class="card-label">Inactivos</span>
-      </div>
-      <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
-        <span class="material-icons">filter_list</span>
-      </button>
-    </div>
+    <button class="card-filter-btn" (click)="filtrarPor('Interno')">
+      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+    </button>
   </div>
+
+  <div class="summary-card">
+    <div class="card-icon card-icon--external">
+      <img src="icons/user.svg" class="card-svg" />
+      <img src="icons/arrow-up-right.svg" class="card-svg-arrow" />
+    </div>
+    <div class="card-info">
+      <span class="card-number">{{ totalExternos }}</span>
+      <span class="card-label">Externos</span>
+    </div>
+    <button class="card-filter-btn" (click)="filtrarPor('Externo')">
+      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+    </button>
+  </div>
+
+  <div class="summary-card">
+    <div class="card-icon card-icon--inactive">
+      <img src="icons/user-close-svgrepo-com.svg" class="card-svg" />
+    </div>
+    <div class="card-info">
+      <span class="card-number">{{ totalInactivos }}</span>
+      <span class="card-label">Inactivos</span>
+    </div>
+    <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
+      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+    </button>
+  </div>
+</div>
 
   <!-- Barra de búsqueda y filtro Estado -->
   <div class="search-bar">
@@ -77,13 +79,12 @@
         (input)="aplicarFiltros()" />
     </div>
     <div class="estado-filter-wrapper">
-      <span class="material-icons estado-icon">tune</span>
-      <select class="estado-select" [(ngModel)]="estadoFiltro" (change)="aplicarFiltros()">
-        <option value="">Estado</option>
-        <option value="Activo">Activo</option>
-        <option value="Inactivo">Inactivo</option>
-      </select>
-    </div>
+<img src="icons/circle-plus-svgrepo-com.svg" class="estado-icon-img" />  <select class="estado-select" [(ngModel)]="estadoFiltro" (change)="aplicarFiltros()">
+    <option value="">Estado</option>
+    <option value="Activo">Activo</option>
+    <option value="Inactivo">Inactivo</option>
+  </select>
+</div>
   </div>
 
   <!-- Tabla de Líderes -->
@@ -102,8 +103,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lider of lideresPaginados">
-          <td>{{ lider.codigo }}</td>
+        <tr *ngFor="let lider of lideresPaginados; let i = index">
+          <td>{{ rangoInicio + i }}</td>
           <td>{{ lider.tipo }}</td>
           <td>{{ lider.nombre }}</td>
           <td>{{ lider.cliente }}</td>
@@ -120,9 +121,9 @@
               <span class="material-icons">more_vert</span>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="verLider(lider)">
-                👁 Ver más
-              </button>
+             <button mat-menu-item (click)="verLider(lider, rangoInicio + i)">
+  👁 Ver más
+</button>
               <button mat-menu-item (click)="editarLider(lider)">
                 ✏️ Editar
               </button>
@@ -165,5 +166,6 @@
 </app-modal-lider>
 <app-modal-detalle-lider
   *ngIf="mostrarDetalle"
-  [lider]="liderSeleccionado">
+  [lider]="liderSeleccionado"
+  (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>
