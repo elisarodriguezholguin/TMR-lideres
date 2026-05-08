@@ -21,10 +21,17 @@
   <div class="page-header">
     <h1 class="page-title">Líderes</h1>
     <div class="header-actions">
-      <button class="btn btn-outline" (click)="abrirDescarga()">
-        <span class="material-icons">download</span>
-        Descargar
-      </button>
+      <div class="descarga-wrapper">
+  <button class="btn btn-outline" (click)="abrirDescarga()">
+    <span class="material-icons">download</span>
+    Descargar
+  </button>
+  <div class="descarga-dropdown" *ngIf="mostrarDescarga">
+    <p class="descarga-titulo">Seleccione el formato:</p>
+    <button class="btn-descarga" (click)="descargarPDF()">Descargar PDF</button>
+    <button class="btn-descarga" (click)="descargarExcel()">Descargar Excel</button>
+  </div>
+</div>
       <button class="btn btn-primary" (click)="abrirFormulario()">
         <span class="material-icons">add</span>
         Agregar
