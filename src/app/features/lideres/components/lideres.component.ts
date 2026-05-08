@@ -186,9 +186,13 @@ verLider(lider: Lider, numero: number): void {
   }
 
  editarLider(lider: any) {
+
   console.log('EDITAR FUNCIONA');
+
   this.modoEdicion = true;
+
   this.mostrarFormulario = true;
+
 }
 
   cerrarFormulario(): void {

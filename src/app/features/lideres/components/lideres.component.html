@@ -4,12 +4,17 @@
   <!-- Top Bar: Hola Marlene + campanita -->
   <div class="top-bar">
     <span></span>
-    <div class="top-bar-right">
-      <button class="notif-btn">
-        <span class="material-icons">notifications</span>
-      </button>
-      <span class="top-bar-greeting">Hola, <strong>Marlene</strong></span>
-    </div>
+ <div class="top-bar-right">
+
+  <span class="top-bar-greeting">
+    Hola, <strong>Marlene</strong>
+  </span>
+
+  <button class="notif-btn">
+    <span class="material-icons">notifications_none</span>
+  </button>
+
+</div>
   </div>
 
   <!-- Header -->
@@ -29,47 +34,47 @@
 
   <!-- Cards / Frames de resumen -->
   <!-- Cards / Frames de resumen -->
-<div class="cards-row">
-  <div class="summary-card">
-    <div class="card-icon">
-      <img src="icons/user.svg" class="card-svg" />
+  <div class="cards-row">
+    <div class="summary-card">
+      <div class="card-icon">
+        <img src="icons/user.svg" class="card-svg" />
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalInternos }}</span>
+        <span class="card-label">Internos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Interno')">
+        <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+      </button>
     </div>
-    <div class="card-info">
-      <span class="card-number">{{ totalInternos }}</span>
-      <span class="card-label">Internos</span>
-    </div>
-    <button class="card-filter-btn" (click)="filtrarPor('Interno')">
-      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
-    </button>
-  </div>
 
-  <div class="summary-card">
-    <div class="card-icon card-icon--external">
-      <img src="icons/user.svg" class="card-svg" />
-      <img src="icons/arrow-up-right.svg" class="card-svg-arrow" />
+    <div class="summary-card">
+      <div class="card-icon card-icon--external">
+        <img src="icons/user.svg" class="card-svg" />
+        <img src="icons/arrow-up-right.svg" class="card-svg-arrow" />
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalExternos }}</span>
+        <span class="card-label">Externos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Externo')">
+        <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+      </button>
     </div>
-    <div class="card-info">
-      <span class="card-number">{{ totalExternos }}</span>
-      <span class="card-label">Externos</span>
-    </div>
-    <button class="card-filter-btn" (click)="filtrarPor('Externo')">
-      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
-    </button>
-  </div>
 
-  <div class="summary-card">
-    <div class="card-icon card-icon--inactive">
-      <img src="icons/user-close-svgrepo-com.svg" class="card-svg" />
+    <div class="summary-card">
+      <div class="card-icon card-icon--inactive">
+        <img src="icons/user-close-svgrepo-com.svg" class="card-svg" />
+      </div>
+      <div class="card-info">
+        <span class="card-number">{{ totalInactivos }}</span>
+        <span class="card-label">Inactivos</span>
+      </div>
+      <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
+        <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
+      </button>
     </div>
-    <div class="card-info">
-      <span class="card-number">{{ totalInactivos }}</span>
-      <span class="card-label">Inactivos</span>
-    </div>
-    <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
-      <img src="icons/filter-svgrepo-com.svg" class="filter-svg" />
-    </button>
   </div>
-</div>
 
   <!-- Barra de búsqueda y filtro Estado -->
   <div class="search-bar">
@@ -79,12 +84,19 @@
         (input)="aplicarFiltros()" />
     </div>
     <div class="estado-filter-wrapper">
-<img src="icons/circle-plus-svgrepo-com.svg" class="estado-icon-img" />  <select class="estado-select" [(ngModel)]="estadoFiltro" (change)="aplicarFiltros()">
-    <option value="">Estado</option>
-    <option value="Activo">Activo</option>
-    <option value="Inactivo">Inactivo</option>
-  </select>
-</div>
+      <img src="icons/circle-plus-svgrepo-com.svg" class="estado-icon-img" />
+       <select class="estado-select"
+  [(ngModel)]="estadoFiltro"
+  (change)="aplicarFiltros()">
+
+  <option value="" disabled selected hidden></option>
+
+  <option value="Activo">Activo</option>
+
+  <option value="Inactivo">Inactivo</option>
+
+</select>
+    </div>
   </div>
 
   <!-- Tabla de Líderes -->
@@ -121,10 +133,10 @@
               <span class="material-icons">more_vert</span>
             </button>
             <mat-menu #menu="matMenu">
-             <button mat-menu-item (click)="verLider(lider, rangoInicio + i)">
-  👁 Ver más
-</button>
-              <button mat-menu-item (click)="editarLider(lider)">
+              <button mat-menu-item (click)="verLider(lider, rangoInicio + i)">
+                👁 Ver más
+              </button>
+              <button mat-menu-item (click)="mostrarFormulario = true">
                 ✏️ Editar
               </button>
             </mat-menu>
@@ -160,12 +172,11 @@
     </div>
   </div>
 </div>
-<app-modal-lider
-  [mostrarFormulario]="mostrarFormulario"
-  [modoEdicion]="modoEdicion">
+
+<!-- MODAL EDITAR -->
+<app-modal-lider *ngIf="mostrarFormulario" [mostrarFormulario]="mostrarFormulario" [modoEdicion]="modoEdicion">
 </app-modal-lider>
-<app-modal-detalle-lider
-  *ngIf="mostrarDetalle"
-  [lider]="liderSeleccionado"
-  (cerrarModal)="mostrarDetalle = false">
+
+<!-- MODAL DETALLE -->
+<app-modal-detalle-lider *ngIf="mostrarDetalle" [lider]="liderSeleccionado" (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>

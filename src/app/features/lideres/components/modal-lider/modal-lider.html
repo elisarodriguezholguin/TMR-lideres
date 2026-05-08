@@ -1,4 +1,4 @@
-<div class="modal-overlay" *ngIf="mostrarFormulario">
+<div class="modal-overlay">
 
   <div class="modal-card">
 
@@ -27,31 +27,28 @@
         Información General
       </div>
 
+      <!-- FILA -->
       <div class="form-row">
 
-        <!-- Tipo -->
-        <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Estado">
 
-          <label>Tipo</label>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Tipo de líder">
 
-          <input
-            type="text"
-            class="form-input"
-            placeholder="Seleccione tipo">
+      </div>
 
-        </div>
+      <!-- FILA -->
+      <div class="form-row">
 
-        <!-- Persona -->
-        <div class="form-group">
-
-          <label>Persona</label>
-
-          <input
-            type="text"
-            class="form-input"
-            placeholder="Ingrese persona">
-
-        </div>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Persona">
 
       </div>
 
@@ -60,57 +57,42 @@
         Datos de contacto
       </div>
 
-      <!-- Nombre / Apellido -->
+      <!-- FILA -->
       <div class="form-row">
 
-        <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Nombres">
 
-          <label>Nombre</label>
-
-          <input
-            type="text"
-            class="form-input"
-            placeholder="Ingrese nombre">
-
-        </div>
-
-        <div class="form-group">
-
-          <label>Apellido</label>
-
-          <input
-            type="text"
-            class="form-input"
-            placeholder="Ingrese apellido">
-
-        </div>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Apellidos">
 
       </div>
 
-      <!-- Correo / Teléfono -->
+      <!-- FILA -->
       <div class="form-row">
 
-        <div class="form-group">
+        <input
+          type="email"
+          class="form-input"
+          placeholder="Correo electrónico">
 
-          <label>Correo electrónico</label>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Teléfono">
 
-          <input
-            type="email"
-            class="form-input"
-            placeholder="correo@empresa.com">
+      </div>
 
-        </div>
+      <!-- BOTON -->
+      <div class="button-container">
 
-        <div class="form-group">
-
-          <label>Teléfono</label>
-
-          <input
-            type="text"
-            class="form-input"
-            placeholder="0999999999">
-
-        </div>
+        <button class="btn-guardar">
+          Guardar cambios
+        </button>
 
       </div>
 
