@@ -5,16 +5,114 @@
     <!-- HEADER -->
     <div class="modal-header">
 
-      <h2 class="modal-title">
-        {{ modoEdicion ? 'Editar Líder' : 'Agregar Líder' }}
-      </h2>
+      <div>
+
+        <span class="modal-subtitle">
+          Código 001
+        </span>
+
+        <h2 class="modal-title">
+          {{ modoEdicion ? 'Editar Líder' : 'Agregar Líder' }}
+        </h2>
+
+      </div>
 
     </div>
 
     <!-- BODY -->
     <div class="modal-body">
 
-      <p>Contenido del modal</p>
+      <!-- INFORMACIÓN GENERAL -->
+      <div class="section-title">
+        Información General
+      </div>
+
+      <div class="form-row">
+
+        <!-- Tipo -->
+        <div class="form-group">
+
+          <label>Tipo</label>
+
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Seleccione tipo">
+
+        </div>
+
+        <!-- Persona -->
+        <div class="form-group">
+
+          <label>Persona</label>
+
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Ingrese persona">
+
+        </div>
+
+      </div>
+
+      <!-- DATOS CONTACTO -->
+      <div class="section-title">
+        Datos de contacto
+      </div>
+
+      <!-- Nombre / Apellido -->
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Nombre</label>
+
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Ingrese nombre">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Apellido</label>
+
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Ingrese apellido">
+
+        </div>
+
+      </div>
+
+      <!-- Correo / Teléfono -->
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Correo electrónico</label>
+
+          <input
+            type="email"
+            class="form-input"
+            placeholder="correo@empresa.com">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Teléfono</label>
+
+          <input
+            type="text"
+            class="form-input"
+            placeholder="0999999999">
+
+        </div>
+
+      </div>
 
     </div>
 

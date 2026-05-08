@@ -1,6 +1,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
+
   background: rgba(0, 0, 0, 0.35);
 
   display: flex;
@@ -12,8 +13,11 @@
 
 .modal-card {
   width: 700px;
+
   background: white;
+
   border-radius: 20px;
+
   padding: 24px;
 
   box-shadow:
@@ -24,12 +28,88 @@
   margin-bottom: 24px;
 }
 
+.modal-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #98A2B3;
+}
+
 .modal-title {
+  margin-top: 8px;
+
   font-size: 32px;
-  font-weight: 700;
-  color: #123a7d;
+  font-weight: 800;
+
+  color: #123A7D;
 }
 
 .modal-body {
   font-size: 16px;
+}
+
+/* TITULOS */
+.section-title {
+  margin-top: 24px;
+  margin-bottom: 18px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #111827;
+}
+
+/* FILAS */
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+  margin-bottom: 18px;
+}
+
+/* GRUPOS */
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+/* LABELS */
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #374151;
+}
+
+/* INPUTS */
+.form-input {
+  width: 100%;
+  height: 40px;
+
+  border: 1px solid #D1D5DB;
+
+  border-radius: 10px;
+
+  padding: 0 14px;
+
+  font-size: 14px;
+
+  background: #FFFFFF;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+/* EFECTO AL HACER CLICK */
+.form-input:focus {
+  border-color: #123A7D;
+
+  box-shadow:
+    0 0 0 3px rgba(18, 58, 125, 0.08);
 }
