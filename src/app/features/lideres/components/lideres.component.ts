@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ModalLider } from './modal-lider/modal-lider';
 import { ModalDetalleLider } from './modal-detalle-lider/modal-detalle-lider';
+import { ModalDescargaComponent } from './modal-descarga/modal-descarga.component';
+
 export interface Lider {
   codigo: string;
   tipo: 'Interno' | 'Externo';
@@ -29,7 +31,8 @@ export interface Lider {
     MatButtonModule,
     MatIconModule,
     ModalLider,
-    ModalDetalleLider
+    ModalDetalleLider,
+    ModalDescargaComponent
   ],
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
@@ -65,9 +68,10 @@ export class LideresComponent implements OnInit {
   totalPaginas = 1;
   paginas: number[] = [];
 
-  // ── Formulario ─────────────────────────────────────────
+  // ── Modales ────────────────────────────────────────────
   mostrarFormulario = false;
   mostrarDetalle = false;
+  mostrarDescarga = false;
   liderSeleccionado: any = null;
   modoEdicion = false;
   liderEditando: Lider | null = null;
@@ -85,7 +89,6 @@ export class LideresComponent implements OnInit {
       telefono: [''],
       estado: ['Activo', Validators.required],
     });
-
     this.aplicarFiltros();
   }
 
@@ -124,20 +127,16 @@ export class LideresComponent implements OnInit {
 
   aplicarFiltros(): void {
     const texto = this.busqueda.toLowerCase();
-
     this.lideresFiltrados = this.lideres.filter(l => {
       const matchTexto = !texto ||
         l.nombre.toLowerCase().includes(texto) ||
         l.codigo.toLowerCase().includes(texto) ||
         l.correo.toLowerCase().includes(texto) ||
         l.cliente.toLowerCase().includes(texto);
-
       const matchTipo = !this.tipoFiltro || l.tipo === this.tipoFiltro;
       const matchEstado = !this.estadoFiltro || l.estado === this.estadoFiltro;
-
       return matchTexto && matchTipo && matchEstado;
     });
-
     this.totalPaginas = Math.max(1, Math.ceil(this.lideresFiltrados.length / this.porPagina));
     this.paginaActual = 1;
     this.calcularPaginas();
@@ -169,31 +168,13 @@ export class LideresComponent implements OnInit {
     if (this.paginaActual < this.totalPaginas) this.irPagina(this.paginaActual + 1);
   }
 
-  // ── Modal / Form ───────────────────────────────────────
-  abrirFormulario() {
-  console.log('BOTON FUNCIONA');
-  this.mostrarFormulario = true;
-}
-
-verLider(lider: Lider, numero: number): void {
-  this.liderSeleccionado = { ...lider, numero };
-  this.mostrarDetalle = true;
-}
-
-  cerrarDetalle(): void {
-    this.mostrarDetalle = false;
-    this.liderSeleccionado = null;
+  // ── Modal Formulario ───────────────────────────────────
+  abrirFormulario(): void {
+    this.modoEdicion = false;
+    this.liderEditando = null;
+    this.liderForm.reset({ estado: 'Activo' });
+    this.mostrarFormulario = true;
   }
-
- editarLider(lider: any) {
-
-  console.log('EDITAR FUNCIONA');
-
-  this.modoEdicion = true;
-
-  this.mostrarFormulario = true;
-
-}
 
   cerrarFormulario(): void {
     this.mostrarFormulario = false;
@@ -201,20 +182,55 @@ verLider(lider: Lider, numero: number): void {
     this.liderForm.reset();
   }
 
+  // ── Modal Ver Detalle ──────────────────────────────────
+  verLider(lider: Lider, numero: number): void {
+    this.liderSeleccionado = { ...lider, numero };
+    this.mostrarDetalle = true;
+  }
+
+  cerrarDetalle(): void {
+    this.mostrarDetalle = false;
+    this.liderSeleccionado = null;
+  }
+
+  // ── Modal Editar ───────────────────────────────────────
+  editarLider(lider: Lider): void {
+    this.modoEdicion = true;
+    this.liderEditando = lider;
+    this.liderForm.patchValue(lider);
+    this.mostrarFormulario = true;
+  }
+
   guardarLider(): void {
     if (this.liderForm.invalid) return;
-
     const datos = this.liderForm.value as Lider;
-
     if (this.modoEdicion && this.liderEditando) {
       const idx = this.lideres.indexOf(this.liderEditando);
       if (idx !== -1) this.lideres[idx] = { ...datos };
     } else {
       this.lideres.push({ ...datos });
     }
-
     this.aplicarFiltros();
     this.cerrarFormulario();
+  }
+
+  // ── Modal Descarga ─────────────────────────────────────
+  abrirDescarga(): void {
+    this.mostrarDescarga = true;
+  }
+
+  cerrarDescarga(): void {
+    this.mostrarDescarga = false;
+  }
+
+  descargarPDF(): void {
+    this.mostrarDescarga = false;
+    console.log('Descargando PDF...');
+  }
+
+  descargarExcel(): void {
+    this.mostrarDescarga = false;
+    console.log('Descargando Excel...');
   }
 
   eliminarLider(lider: Lider): void {
@@ -222,10 +238,5 @@ verLider(lider: Lider, numero: number): void {
       this.lideres = this.lideres.filter(l => l !== lider);
       this.aplicarFiltros();
     }
-  }
-
-  descargar(): void {
-    // Lógica de exportación CSV/Excel aquí
-    console.log('Descargando lista de líderes...');
   }
 }

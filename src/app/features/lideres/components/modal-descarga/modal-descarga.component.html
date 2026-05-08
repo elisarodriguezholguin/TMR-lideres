@@ -1,0 +1,16 @@
+<!-- modal-descarga.component.html -->
+<div class="modal-overlay" (click)="onCerrar()">
+  <div class="modal-descarga-card" (click)="$event.stopPropagation()">
+
+    <p class="modal-descarga-titulo">Seleccione el formato:</p>
+
+    <button class="btn-descarga" (click)="onDescargarPDF()">
+      Descargar PDF
+    </button>
+
+    <button class="btn-descarga" (click)="onDescargarExcel()">
+      Descargar Excel
+    </button>
+
+  </div>
+</div>

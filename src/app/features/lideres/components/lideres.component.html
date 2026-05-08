@@ -21,7 +21,7 @@
   <div class="page-header">
     <h1 class="page-title">Líderes</h1>
     <div class="header-actions">
-      <button class="btn btn-outline" (click)="descargar()">
+      <button class="btn btn-outline" (click)="abrirDescarga()">
         <span class="material-icons">download</span>
         Descargar
       </button>
@@ -180,3 +180,10 @@
 <!-- MODAL DETALLE -->
 <app-modal-detalle-lider *ngIf="mostrarDetalle" [lider]="liderSeleccionado" (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>
+<!-- ===== MODAL DESCARGA ===== -->
+<app-modal-descarga
+  *ngIf="mostrarDescarga"
+  (cerrar)="cerrarDescarga()"
+  (descargarPDF)="descargarPDF()"
+  (descargarExcel)="descargarExcel()">
+</app-modal-descarga>
