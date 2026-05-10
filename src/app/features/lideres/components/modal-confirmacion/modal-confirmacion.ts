@@ -1,0 +1,13 @@
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-modal-confirmacion',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './modal-confirmacion.html',
+  styleUrl: './modal-confirmacion.scss'
+})
+export class ModalConfirmacion {
+  @Input() mostrar = false;
+}

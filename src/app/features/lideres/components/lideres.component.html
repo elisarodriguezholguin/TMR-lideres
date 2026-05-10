@@ -4,15 +4,23 @@
   <div class="page-header">
     <h1 class="page-title">Líderes</h1>
     <div class="header-actions">
-      <button class="btn btn-outline" (click)="abrirDescarga()">
-        <span class="material-icons">download</span>
-        Descargar
-      </button>
-      <button class="btn btn-primary" (click)="abrirFormulario()">
-        <span class="material-icons">add</span>
-        Agregar
-      </button>
-    </div>
+  <div class="descarga-wrapper">
+    <button class="btn btn-outline" (click)="abrirDescarga()">
+      <span class="material-icons">download</span>
+      Descargar
+    </button>
+    <app-modal-descarga
+      [mostrar]="mostrarDescarga"
+      (cerrar)="cerrarDescarga()"
+      (descargarPDF)="descargarPDF()"
+      (descargarExcel)="descargarExcel()">
+    </app-modal-descarga>
+  </div>
+  <button class="btn btn-primary" (click)="abrirFormulario()">
+    <span class="material-icons">add</span>
+    Agregar
+  </button>
+</div>
   </div>
 
   <!-- Cards -->
@@ -156,9 +164,11 @@
 </div>
 
 <app-modal-lider
+  *ngIf="mostrarFormulario"
   [mostrarFormulario]="mostrarFormulario"
   [modoEdicion]="modoEdicion"
-  (cerrarModal)="cerrarFormulario()">
+  (cerrarModal)="cerrarFormulario()"
+  (guardar)="guardarLider()">
 </app-modal-lider>
 
 <app-modal-detalle-lider
@@ -166,3 +176,6 @@
   [lider]="liderSeleccionado"
   (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>
+<app-modal-confirmacion
+  [mostrar]="mostrarConfirmacion">
+</app-modal-confirmacion>

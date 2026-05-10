@@ -1,4 +1,7 @@
 // lideres.component.ts
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ModalLider } from './modal-lider/modal-lider';
 import { ModalDetalleLider } from './modal-detalle-lider/modal-detalle-lider';
 import { ModalDescargaComponent } from './modal-descarga/modal-descarga.component';
-
+import { ModalConfirmacion } from './modal-confirmacion/modal-confirmacion';
 export interface Lider {
   codigo: string;
   tipo: 'Interno' | 'Externo';
@@ -32,7 +35,8 @@ export interface Lider {
     MatIconModule,
     ModalLider,
     ModalDetalleLider,
-    ModalDescargaComponent
+    ModalDescargaComponent,
+    ModalConfirmacion
   ],
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
@@ -72,6 +76,7 @@ export class LideresComponent implements OnInit {
   mostrarFormulario = false;
   mostrarDetalle = false;
   mostrarDescarga = false;
+  mostrarConfirmacion = false;
   liderSeleccionado: any = null;
   modoEdicion = false;
   liderEditando: Lider | null = null;
@@ -170,11 +175,12 @@ export class LideresComponent implements OnInit {
 
   // ── Modal Formulario ───────────────────────────────────
   abrirFormulario(): void {
-    this.modoEdicion = false;
-    this.liderEditando = null;
-    this.liderForm.reset({ estado: 'Activo' });
-    this.mostrarFormulario = true;
-  }
+  this.mostrarDescarga = false;
+  this.modoEdicion = false;
+  this.liderEditando = null;
+  this.liderForm.reset({ estado: 'Activo' });
+  this.mostrarFormulario = true;
+}
 
   cerrarFormulario(): void {
     this.mostrarFormulario = false;
@@ -201,18 +207,12 @@ export class LideresComponent implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  guardarLider(): void {
-    if (this.liderForm.invalid) return;
-    const datos = this.liderForm.value as Lider;
-    if (this.modoEdicion && this.liderEditando) {
-      const idx = this.lideres.indexOf(this.liderEditando);
-      if (idx !== -1) this.lideres[idx] = { ...datos };
-    } else {
-      this.lideres.push({ ...datos });
-    }
-    this.aplicarFiltros();
-    this.cerrarFormulario();
-  }
+ guardarLider(): void {
+  this.mostrarConfirmacion = true;
+  setTimeout(() => {
+    this.mostrarConfirmacion = false;
+  }, 2500);
+}
 
   // ── Modal Descarga ─────────────────────────────────────
   abrirDescarga(): void {
@@ -223,15 +223,45 @@ export class LideresComponent implements OnInit {
     this.mostrarDescarga = false;
   }
 
-  descargarPDF(): void {
-    this.mostrarDescarga = false;
-    console.log('Descargando PDF...');
-  }
+descargarPDF(): void {
+  const doc = new jsPDF();
+doc.setTextColor(115, 115, 115);
+doc.text('Lista de Líderes', 14, 16);
+doc.setTextColor(0, 0, 0);  autoTable(doc, {
+    head: [['#', 'Tipo', 'Nombre', 'Cliente', 'Correo', 'Teléfono', 'Estado']],
+    body: this.lideres.map((l, i) => [
+      i + 1, l.tipo, l.nombre, l.cliente, l.correo, l.telefono, l.estado
+    ]),
+    startY: 22,
+    headStyles: {
+      fillColor: [22, 53, 114],
+      textColor: [255, 255, 255],
+      fontStyle: 'bold'
+    },
+    alternateRowStyles: {
+      fillColor: [245, 245, 245]
+    }
+  });
+  doc.save('lideres.pdf');
+  this.mostrarDescarga = false;
+}
 
   descargarExcel(): void {
-    this.mostrarDescarga = false;
-    console.log('Descargando Excel...');
-  }
+  const datos = this.lideres.map((l, i) => ({
+    '#': i + 1,
+    'Tipo': l.tipo,
+    'Nombre': l.nombre,
+    'Cliente': l.cliente,
+    'Correo': l.correo,
+    'Teléfono': l.telefono,
+    'Estado': l.estado
+  }));
+  const ws = XLSX.utils.json_to_sheet(datos);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Líderes');
+  XLSX.writeFile(wb, 'lideres.xlsx');
+  this.mostrarDescarga = false;
+}
 
   eliminarLider(lider: Lider): void {
     if (confirm(`¿Eliminar a ${lider.nombre}?`)) {

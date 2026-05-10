@@ -14,10 +14,19 @@
     <!-- BODY -->
     <div class="modal-body">
 
-      <!-- INFORMACIÓN GENERAL -->
       <div class="section-title">
         <span class="section-line"></span>
         Información General
+      </div>
+
+      <div class="form-row" *ngIf="modoEdicion">
+        <div class="select-wrapper">
+          <select class="form-input">
+            <option value="">Estado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-row">
@@ -39,7 +48,6 @@
         </div>
       </div>
 
-      <!-- DATOS CONTACTO -->
       <div class="section-title">
         <span class="section-line"></span>
         Datos de contacto
@@ -55,10 +63,10 @@
         <input type="text" class="form-input" placeholder="Teléfono">
       </div>
 
-      <!-- BOTÓN -->
       <div class="button-container">
-        <button class="btn-guardar" (click)="cerrar()">
-          {{ modoEdicion ? 'Guardar cambios' : 'Agregar líder' }} +
+        <button class="btn-guardar" (click)="onGuardar()">
+          <span class="material-icons">save</span>
+          {{ modoEdicion ? 'Guardar cambios' : 'Agregar líder' }}
         </button>
       </div>
 

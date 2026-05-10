@@ -13,8 +13,14 @@ export class ModalLider {
   @Input() mostrarFormulario = false;
   @Input() modoEdicion = false;
   @Output() cerrarModal = new EventEmitter<void>();
+  @Output() guardar = new EventEmitter<void>();
 
   cerrar() {
+    this.cerrarModal.emit();
+  }
+
+  onGuardar() {
+    this.guardar.emit();
     this.cerrarModal.emit();
   }
 }

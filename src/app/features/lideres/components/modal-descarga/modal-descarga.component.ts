@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,13 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./modal-descarga.component.scss']
 })
 export class ModalDescargaComponent {
+  @Input() mostrar = false;
   @Output() cerrar = new EventEmitter<void>();
   @Output() descargarPDF = new EventEmitter<void>();
   @Output() descargarExcel = new EventEmitter<void>();
-
-  onCerrar(): void {
-    this.cerrar.emit();
-  }
 
   onDescargarPDF(): void {
     this.descargarPDF.emit();
