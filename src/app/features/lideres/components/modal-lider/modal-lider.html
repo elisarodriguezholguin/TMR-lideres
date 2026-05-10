@@ -1,22 +1,14 @@
-<div class="modal-overlay">
-
-  <div class="modal-card">
+<div class="modal-overlay" *ngIf="mostrarFormulario" (click)="cerrar()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
 
     <!-- HEADER -->
     <div class="modal-header">
-
-      <div>
-
-        <span class="modal-subtitle">
-          Código 001
-        </span>
-
-        <h2 class="modal-title">
-          {{ modoEdicion ? 'Editar Líder' : 'Agregar Líder' }}
-        </h2>
-
-      </div>
-
+      <h2 class="modal-title">
+        {{ modoEdicion ? 'Editar Líder' : 'Nuevo Líder' }}
+      </h2>
+      <button class="modal-close" (click)="cerrar()">
+        <span class="material-icons">close</span>
+      </button>
     </div>
 
     <!-- BODY -->
@@ -24,80 +16,52 @@
 
       <!-- INFORMACIÓN GENERAL -->
       <div class="section-title">
+        <span class="section-line"></span>
         Información General
       </div>
 
-      <!-- FILA -->
       <div class="form-row">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Estado">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Tipo de líder">
-
-      </div>
-
-      <!-- FILA -->
-      <div class="form-row">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Persona">
-
+        <div class="select-wrapper">
+          <select class="form-input">
+            <option value="">Tipo de líder</option>
+            <option value="Interno">Interno</option>
+            <option value="Externo">Externo</option>
+          </select>
+        </div>
+        <div class="select-wrapper">
+          <select class="form-input">
+            <option value="">Persona</option>
+            <option value="1">Maribel Sofía Cabezas Paredes</option>
+            <option value="2">Leonel Pablo Catro Jiménez</option>
+            <option value="3">Diego Armando Maradona Carchi</option>
+            <option value="4">Óscar Mario Suárez Torres</option>
+          </select>
+        </div>
       </div>
 
       <!-- DATOS CONTACTO -->
       <div class="section-title">
+        <span class="section-line"></span>
         Datos de contacto
       </div>
 
-      <!-- FILA -->
       <div class="form-row">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Nombres">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Apellidos">
-
+        <input type="text" class="form-input" placeholder="Nombres">
+        <input type="text" class="form-input" placeholder="Apellidos">
       </div>
 
-      <!-- FILA -->
       <div class="form-row">
-
-        <input
-          type="email"
-          class="form-input"
-          placeholder="Correo electrónico">
-
-        <input
-          type="text"
-          class="form-input"
-          placeholder="Teléfono">
-
+        <input type="email" class="form-input" placeholder="Correo electrónico">
+        <input type="text" class="form-input" placeholder="Teléfono">
       </div>
 
-      <!-- BOTON -->
+      <!-- BOTÓN -->
       <div class="button-container">
-
-        <button class="btn-guardar">
-          Guardar cambios
+        <button class="btn-guardar" (click)="cerrar()">
+          {{ modoEdicion ? 'Guardar cambios' : 'Agregar líder' }} +
         </button>
-
       </div>
 
     </div>
-
   </div>
-
 </div>
