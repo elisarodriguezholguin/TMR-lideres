@@ -4,23 +4,20 @@
   <div class="page-header">
     <h1 class="page-title">Líderes</h1>
     <div class="header-actions">
-  <div class="descarga-wrapper">
-    <button class="btn btn-outline" (click)="abrirDescarga()">
-      <span class="material-icons">download</span>
-      Descargar
-    </button>
-    <app-modal-descarga
-      [mostrar]="mostrarDescarga"
-      (cerrar)="cerrarDescarga()"
-      (descargarPDF)="descargarPDF()"
-      (descargarExcel)="descargarExcel()">
-    </app-modal-descarga>
-  </div>
-  <button class="btn btn-primary" (click)="abrirFormulario()">
-    <span class="material-icons">add</span>
-    Agregar
-  </button>
-</div>
+      <div class="descarga-wrapper">
+        <button class="btn btn-outline" (click)="abrirDescarga()">
+          <span class="material-icons">download</span>
+          Descargar
+        </button>
+        <app-modal-descarga [mostrar]="mostrarDescarga" (cerrar)="cerrarDescarga()" (descargarPDF)="descargarPDF()"
+          (descargarExcel)="descargarExcel()">
+        </app-modal-descarga>
+      </div>
+      <button class="btn btn-primary" (click)="abrirFormulario()">
+        <span class="material-icons">add</span>
+        Agregar
+      </button>
+    </div>
   </div>
 
   <!-- Cards -->
@@ -70,8 +67,8 @@
   <div class="search-bar">
     <div class="search-input-wrapper">
       <span class="material-icons search-icon">search</span>
-      <input type="text" class="search-input" placeholder="Buscar por nombres, código..."
-        [(ngModel)]="busqueda" (input)="aplicarFiltros()" />
+      <input type="text" class="search-input" placeholder="Buscar por nombres, código..." [(ngModel)]="busqueda"
+        (input)="aplicarFiltros()" />
     </div>
     <div class="estado-filter-wrapper">
       <img src="icons/circle-plus-svgrepo-com.svg" class="estado-icon-img" />
@@ -100,15 +97,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let lider of lideresPaginados; let i = index">
-  <td>{{ lider.codigo }}</td>
+          <td>{{ lider.codigo }}</td>
           <td>{{ lider.tipo }}</td>
           <td>{{ lider.nombre }}</td>
           <td>{{ lider.cliente }}</td>
           <td>{{ lider.correo }}</td>
           <td>{{ lider.telefono }}</td>
           <td>
-            <span class="badge"
-              [class.badge--activo]="lider.estado === 'Activo'"
+            <span class="badge" [class.badge--activo]="lider.estado === 'Activo'"
               [class.badge--inactivo]="lider.estado !== 'Activo'">
               {{ lider.estado }}
             </span>
@@ -148,8 +144,7 @@
         <button class="page-btn" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
           <span class="material-icons">chevron_left</span>
         </button>
-        <button *ngFor="let p of paginas" class="page-btn page-number"
-          [class.page-btn--active]="p === paginaActual"
+        <button *ngFor="let p of paginas" class="page-btn page-number" [class.page-btn--active]="p === paginaActual"
           (click)="irPagina(p)">{{ p }}</button>
         <button class="page-btn" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
           <span class="material-icons">chevron_right</span>
@@ -163,19 +158,13 @@
 
 </div>
 
-<app-modal-lider
-  *ngIf="mostrarFormulario"
-  [mostrarFormulario]="mostrarFormulario"
-  [modoEdicion]="modoEdicion"
-  (cerrarModal)="cerrarFormulario()"
-  (guardar)="guardarLider()">
+<app-modal-lider *ngIf="mostrarFormulario" [mostrarFormulario]="mostrarFormulario" [modoEdicion]="modoEdicion"
+  (cerrarModal)="cerrarFormulario()" (guardar)="guardarLider()">
 </app-modal-lider>
 
-<app-modal-detalle-lider
-  *ngIf="mostrarDetalle"
-  [lider]="liderSeleccionado"
-  (cerrarModal)="mostrarDetalle = false">
+<app-modal-detalle-lider *ngIf="mostrarDetalle" [lider]="liderSeleccionado" (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>
-<app-modal-confirmacion
-  [mostrar]="mostrarConfirmacion">
+<app-modal-confirmacion 
+  [mostrar]="mostrarConfirmacion"
+  [mensaje]="mensajeConfirmacion">
 </app-modal-confirmacion>
