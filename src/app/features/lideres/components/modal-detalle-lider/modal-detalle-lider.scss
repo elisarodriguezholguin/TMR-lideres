@@ -4,8 +4,8 @@ $white: #ffffff;
 $border: #E5E5E5;
 $text-dark: #1a1a2e;
 $text-mid: #4a4a6a;
-$text-light: #7C7C7C;
-$activo: #22c55e;
+$text-light: #737373;
+$activo: #26BF4D;
 $inactivo: #ef4444;
 
 .detalle-overlay {
@@ -22,10 +22,10 @@ $inactivo: #ef4444;
 .detalle-card {
   background: $white;
   border-radius: 16px;
-  width: 480px;
+  width: 560px;
   max-width: 95vw;
-  padding: 28px;
-  box-shadow: 0 20px 60px rgba($primary-dark, 0.2);
+  padding: 32px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .detalle-header {
@@ -36,7 +36,10 @@ $inactivo: #ef4444;
 }
 
 .detalle-codigo {
-  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
   color: $text-light;
 }
 
@@ -62,15 +65,47 @@ $inactivo: #ef4444;
 }
 
 .detalle-nombre {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: $primary;
   margin: 0;
 }
 
+// ── Badge estado ───────────────────────────────────────────
+.badge-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 400;
+  border: 1px solid #D4D4D4;
+  background: #ffffff;
+  color: #404040;
+}
+
+.badge-circulo {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.badge-activo {
+  .badge-circulo { background: #26BF4D; }
+}
+
+.badge-inactivo {
+  .badge-circulo { background: #ef4444; }
+}
+
+// ── Info row ───────────────────────────────────────────────
 .detalle-info-row {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
@@ -79,28 +114,48 @@ $inactivo: #ef4444;
   align-items: center;
   gap: 6px;
   font-size: 14px;
-  color: #737373;
+  color: $text-light;
 }
 
 .detalle-icon {
   width: 16px;
   height: 16px;
-  filter: brightness(0) saturate(100%) invert(15%) sepia(61%) saturate(1200%) hue-rotate(203deg) brightness(95%);
+  opacity: 0.6;
 }
 
-.detalle-icon-mat {
-  font-size: 16px;
-  color: $primary;
+// ── Ícono con flechita ─────────────────────────────────────
+.detalle-icon-wrapper {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
+.detalle-icon-arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 0px;
+  right: 4px;
+  opacity: 1;
+  filter: invert(40%);
+}
+// ── Sección contacto ───────────────────────────────────────
 .detalle-seccion-titulo {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
-  color: $text-dark;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #163572;
   margin-bottom: 16px;
+  padding-top: 16px;
+  border-top: 1px solid $border;
 }
 
 .detalle-linea-azul {
@@ -133,7 +188,7 @@ $inactivo: #ef4444;
 .detalle-icon-sm {
   width: 14px;
   height: 14px;
-  filter: invert(50%);
+  opacity: 0.6;
 }
 
 .detalle-contacto-valor {
@@ -141,32 +196,4 @@ $inactivo: #ef4444;
   color: $text-dark;
 
   &.azul { color: $primary; }
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-
-  &::before {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  &--activo {
-    background: rgba($activo, 0.10);
-    color: $activo;
-  }
-
-  &--inactivo {
-    background: rgba($inactivo, 0.10);
-    color: $inactivo;
-  }
 }

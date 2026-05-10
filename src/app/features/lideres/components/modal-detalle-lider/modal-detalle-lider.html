@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <div class="detalle-header">
-      <div class="detalle-codigo">{{ lider?.numero }}</div>
+      <div class="detalle-codigo">{{ lider?.codigo }}</div>
       <button class="detalle-close" (click)="cerrar()">
         <span class="material-icons">close</span>
       </button>
@@ -12,8 +12,9 @@
     <!-- Nombre y estado -->
     <div class="detalle-nombre-row">
       <h2 class="detalle-nombre">{{ lider?.nombre }}</h2>
-      <span class="badge" [class.badge--activo]="lider?.estado === 'Activo'"
-        [class.badge--inactivo]="lider?.estado !== 'Activo'">
+      <span class="badge-estado" [class.badge-activo]="lider?.estado === 'Activo'"
+        [class.badge-inactivo]="lider?.estado !== 'Activo'">
+        <span class="badge-circulo"></span>
         {{ lider?.estado }}
       </span>
     </div>
@@ -21,11 +22,16 @@
     <!-- Tipo y cliente -->
     <div class="detalle-info-row">
       <div class="detalle-info-item">
-        <img src="icons/user.svg" class="detalle-icon" />
+        <div class="detalle-icon-wrapper">
+          <img src="icons/user.svg" class="detalle-icon" />
+          <img *ngIf="lider?.tipo === 'Externo'"
+               src="icons/arrow-up-right.svg"
+               class="detalle-icon-arrow" />
+        </div>
         <span>{{ lider?.tipo }}</span>
       </div>
       <div class="detalle-info-item">
-        <span class="material-icons detalle-icon-mat">business</span>
+        <img src="icons/building-07-svgrepo-com.svg" class="detalle-icon" />
         <span>{{ lider?.cliente }}</span>
       </div>
     </div>

@@ -31,7 +31,7 @@
               },
               {
                 "glob": "**/*",
-                "input": "src/app/shared/icons",
+                "input": "src/app/shared/assets/icons",
                 "output": "icons"
               }
             ],
