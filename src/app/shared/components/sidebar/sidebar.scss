@@ -1,11 +1,11 @@
 .sidebar {
   width: 210px;
   min-width: 210px;
-  min-height: 100vh;
-  background: #ffffff;
+  height: 100%;
+  background: transparent;
   padding: 18px 14px;
   box-sizing: border-box;
-  border-right: 1px solid #E5E5E5;
+  flex-shrink: 0;
 }
 
 .logo {
