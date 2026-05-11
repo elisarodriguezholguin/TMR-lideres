@@ -2,7 +2,8 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+//import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -42,10 +43,11 @@ export interface Lider {
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
 })
-export class LideresComponent implements OnInit, AfterViewInit {
+//export class LideresComponent implements OnInit, AfterViewInit {
+export class LideresComponent implements OnInit {
 
-  @ViewChild('tableWrapper') tableWrapper!: ElementRef;
-  @ViewChild('scrollThumb') scrollThumb!: ElementRef;
+ // @ViewChild('tableWrapper') tableWrapper!: ElementRef;
+//  @ViewChild('scrollThumb') scrollThumb!: ElementRef;
 
   // ── Data ───────────────────────────────────────────────
   lideres: Lider[] = [
@@ -102,18 +104,6 @@ export class LideresComponent implements OnInit, AfterViewInit {
     this.aplicarFiltros();
   }
 
-  ngAfterViewInit(): void {
-    const wrapper = this.tableWrapper.nativeElement;
-    const thumb = this.scrollThumb.nativeElement;
-
-    wrapper.addEventListener('scroll', () => {
-      const scrollRatio = wrapper.scrollTop / (wrapper.scrollHeight - wrapper.clientHeight);
-      const trackHeight = thumb.parentElement.clientHeight;
-      const thumbHeight = thumb.clientHeight;
-      const maxTop = trackHeight - thumbHeight;
-      thumb.style.transform = `translateY(${scrollRatio * maxTop}px)`;
-    });
-  }
 
   // ── Contadores cards ───────────────────────────────────
   get totalInternos(): number {
