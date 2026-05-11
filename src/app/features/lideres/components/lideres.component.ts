@@ -2,7 +2,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-//import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -43,11 +42,7 @@ export interface Lider {
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
 })
-//export class LideresComponent implements OnInit, AfterViewInit {
 export class LideresComponent implements OnInit {
-
- // @ViewChild('tableWrapper') tableWrapper!: ElementRef;
-//  @ViewChild('scrollThumb') scrollThumb!: ElementRef;
 
   // ── Data ───────────────────────────────────────────────
   lideres: Lider[] = [
@@ -89,6 +84,9 @@ export class LideresComponent implements OnInit {
   liderEditando: Lider | null = null;
   liderForm!: FormGroup;
 
+  // ── Estado Dropdown ────────────────────────────────────
+  mostrarEstadoDropdown = false;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -104,7 +102,6 @@ export class LideresComponent implements OnInit {
     this.aplicarFiltros();
   }
 
-
   // ── Contadores cards ───────────────────────────────────
   get totalInternos(): number {
     return this.lideres.filter(l => l.tipo === 'Interno').length;
@@ -116,6 +113,10 @@ export class LideresComponent implements OnInit {
 
   get totalInactivos(): number {
     return this.lideres.filter(l => l.estado === 'Inactivo').length;
+  }
+
+  get totalActivos(): number {
+    return this.lideres.filter(l => l.estado === 'Activo').length;
   }
 
   // ── Paginación helpers ─────────────────────────────────
@@ -136,6 +137,20 @@ export class LideresComponent implements OnInit {
   filtrarEstado(estado: string): void {
     this.estadoFiltro = estado;
     this.aplicarFiltros();
+  }
+
+  toggleEstadoDropdown(): void {
+    this.mostrarEstadoDropdown = !this.mostrarEstadoDropdown;
+  }
+
+  seleccionarEstado(estado: string): void {
+    this.estadoFiltro = estado;
+    this.mostrarEstadoDropdown = false;
+    this.aplicarFiltros();
+  }
+
+  cerrarDropdowns(): void {
+    this.mostrarEstadoDropdown = false;
   }
 
   aplicarFiltros(): void {
@@ -197,11 +212,11 @@ export class LideresComponent implements OnInit {
   }
 
   // ── Modal Ver Detalle ──────────────────────────────────
- verLider(lider: Lider, numero: number): void {
-  this.mostrarDescarga = false;
-  this.liderSeleccionado = { ...lider, numero };
-  this.mostrarDetalle = true;
-}
+  verLider(lider: Lider, numero: number): void {
+    this.mostrarDescarga = false;
+    this.liderSeleccionado = { ...lider, numero };
+    this.mostrarDetalle = true;
+  }
 
   cerrarDetalle(): void {
     this.mostrarDetalle = false;

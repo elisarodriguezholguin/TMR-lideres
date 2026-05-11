@@ -216,12 +216,10 @@ $hover-row: rgba(#163572, 0.04);
 }
 
 .estado-icon-img {
-  position: absolute;
-  left: 8px;
   width: 13.33px;
   height: 13.33px;
-  pointer-events: none;
   filter: invert(50%);
+  flex-shrink: 0;
 }
 
 .estado-select {
@@ -240,7 +238,11 @@ $hover-row: rgba(#163572, 0.04);
   transition: border-color 0.18s;
 
   &:focus { border-color: $primary; }
-  option { color: #737373; }
+
+  option {
+    color: #737373;
+    background: $white;
+  }
 }
 
 .search-spacer {
@@ -491,6 +493,121 @@ $hover-row: rgba(#163572, 0.04);
 
   &:first-child { background-color: #f3f4f6 !important; }
   &:hover { background-color: #f3f4f6 !important; }
+}
+
+.estado-texto {
+  font-size: 14px;
+  color: #737373;
+  cursor: pointer;
+}
+
+.estado-filter-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: $white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.estado-texto {
+  font-size: 14px;
+  color: #737373;
+}
+
+.estado-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  min-width: 180px;
+  z-index: 100;
+  padding: 8px;
+}
+
+.dropdown-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.dropdown-search-icon {
+  font-size: 16px;
+  color: $text-light;
+}
+
+.dropdown-search-input {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: $text-dark;
+  width: 100%;
+  background: transparent;
+  &::placeholder { color: $text-light; }
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #737373;
+
+  &:hover { background: $secondary; }
+}
+
+.dropdown-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid $border;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.checked {
+    background: $primary;
+    border-color: $primary;
+  }
+
+  .material-icons {
+    font-size: 12px;
+    color: $white;
+  }
+}
+
+.dropdown-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: $text-light;
+}
+
+.dropdown-limpiar {
+  padding: 8px;
+  font-size: 13px;
+  color: #737373;
+  cursor: pointer;
+  border-top: 1px solid $border;
+  margin-top: 4px;
+  text-align: center;
+
+  &:hover { background: $secondary; border-radius: 6px; }
 }
 // ─────────────────────────────────────────────────────────────
 
