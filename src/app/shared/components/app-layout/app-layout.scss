@@ -20,14 +20,14 @@ $white: #ffffff;
   border: 1px solid #E5E5E5;
   border-left: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 .layout-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  //overflow: hidden;
   overflow-x: hidden;
   min-height: 0;
 }

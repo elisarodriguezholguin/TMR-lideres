@@ -19,7 +19,8 @@ $hover-row: rgba(#163572, 0.04);
   flex-direction: column;
   box-sizing: border-box;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 .page-header {
   display: flex;
@@ -251,9 +252,7 @@ $hover-row: rgba(#163572, 0.04);
   flex: 1;
   min-height: 0;
   display: flex;
-  gap: 6px;
-  align-items: stretch;
-  overflow: hidden;
+  flex-direction: column;
 }
 
 .table-wrapper {
@@ -264,10 +263,6 @@ $hover-row: rgba(#163572, 0.04);
   overflow-x: hidden;
   flex: 1;
   min-height: 0;
-
-  // oculta scrollbar nativo
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
 }
 
 // Scrollbar personalizado externo

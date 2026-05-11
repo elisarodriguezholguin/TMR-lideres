@@ -72,7 +72,7 @@ export class LideresComponent implements OnInit, AfterViewInit {
 
   // ── Paginación ─────────────────────────────────────────
   paginaActual = 1;
-  porPagina = 9;
+  porPagina = 10;
   totalPaginas = 1;
   paginas: number[] = [];
 
