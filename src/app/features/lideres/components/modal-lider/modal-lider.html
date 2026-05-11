@@ -20,31 +20,34 @@
       </div>
 
       <div class="form-row" *ngIf="modoEdicion">
-  <div class="select-wrapper select-wrapper--half">
-    <select class="form-input">
-      <option value="">Estado</option>
-      <option value="Activo">Activo</option>
-      <option value="Inactivo">Inactivo</option>
-    </select>
-  </div>
-</div>
+        <div class="select-wrapper select-wrapper--half" [class.input-error]="enviado && !form.estado">
+          <select class="form-input" [(ngModel)]="form.estado">
+            <option value="">Estado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+          <span class="error-msg" *ngIf="enviado && !form.estado">Campo requerido</span>
+        </div>
+      </div>
 
       <div class="form-row">
-        <div class="select-wrapper">
-          <select class="form-input">
+        <div class="select-wrapper" [class.input-error]="enviado && !form.tipo">
+          <select class="form-input" [(ngModel)]="form.tipo">
             <option value="">Tipo de líder</option>
             <option value="Interno">Interno</option>
             <option value="Externo">Externo</option>
           </select>
+          <span class="error-msg" *ngIf="enviado && !form.tipo">Campo requerido</span>
         </div>
-        <div class="select-wrapper">
-          <select class="form-input">
+        <div class="select-wrapper" [class.input-error]="enviado && !form.persona">
+          <select class="form-input" [(ngModel)]="form.persona">
             <option value="">Persona</option>
             <option value="1">Maribel Sofía Cabezas Paredes</option>
             <option value="2">Leonel Pablo Catro Jiménez</option>
             <option value="3">Diego Armando Maradona Carchi</option>
             <option value="4">Óscar Mario Suárez Torres</option>
           </select>
+          <span class="error-msg" *ngIf="enviado && !form.persona">Campo requerido</span>
         </div>
       </div>
 
@@ -54,13 +57,25 @@
       </div>
 
       <div class="form-row">
-        <input type="text" class="form-input" placeholder="Nombres">
-        <input type="text" class="form-input" placeholder="Apellidos">
+        <div class="input-wrapper" [class.input-error]="enviado && !form.nombres">
+          <input type="text" class="form-input" placeholder="Nombres" [(ngModel)]="form.nombres">
+          <span class="error-msg" *ngIf="enviado && !form.nombres">Campo requerido</span>
+        </div>
+        <div class="input-wrapper" [class.input-error]="enviado && !form.apellidos">
+          <input type="text" class="form-input" placeholder="Apellidos" [(ngModel)]="form.apellidos">
+          <span class="error-msg" *ngIf="enviado && !form.apellidos">Campo requerido</span>
+        </div>
       </div>
 
       <div class="form-row">
-        <input type="email" class="form-input" placeholder="Correo electrónico">
-        <input type="text" class="form-input" placeholder="Teléfono">
+        <div class="input-wrapper" [class.input-error]="enviado && !form.correo">
+          <input type="email" class="form-input" placeholder="Correo electrónico" [(ngModel)]="form.correo">
+          <span class="error-msg" *ngIf="enviado && !form.correo">Campo requerido</span>
+        </div>
+        <div class="input-wrapper" [class.input-error]="enviado && !form.telefono">
+          <input type="text" class="form-input" placeholder="Teléfono" [(ngModel)]="form.telefono">
+          <span class="error-msg" *ngIf="enviado && !form.telefono">Campo requerido</span>
+        </div>
       </div>
 
       <div class="button-container">

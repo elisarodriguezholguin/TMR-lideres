@@ -154,3 +154,18 @@ $text-light: #7C7C7C;
   .material-icons { font-size: 16px; }
   &:hover { background: $primary-dark; }
 }
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.input-error .form-input {
+  border-color: #ef4444 !important;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 3px;
+}

@@ -8,11 +8,13 @@
   <!-- Cards -->
   <div class="cards-row">
     <div class="summary-card">
-      <div class="card-icon">
-        <img src="icons/user.svg" class="card-svg" />
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalInternos }}</span>
+      <div class="card-left">
+        <div class="card-top-row">
+          <div class="card-icon">
+            <img src="icons/user.svg" class="card-svg" />
+          </div>
+          <span class="card-number">{{ totalInternos }}</span>
+        </div>
         <span class="card-label">Internos</span>
       </div>
       <button class="card-filter-btn" (click)="filtrarPor('Interno')">
@@ -21,12 +23,14 @@
     </div>
 
     <div class="summary-card">
-      <div class="card-icon card-icon--external">
-        <img src="icons/user.svg" class="card-svg" />
-        <img src="icons/arrow-up-right.svg" class="card-svg-arrow" />
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalExternos }}</span>
+      <div class="card-left">
+        <div class="card-top-row">
+          <div class="card-icon card-icon--external">
+            <img src="icons/user.svg" class="card-svg" />
+            <img src="icons/arrow-up-right.svg" class="card-svg-arrow" />
+          </div>
+          <span class="card-number">{{ totalExternos }}</span>
+        </div>
         <span class="card-label">Externos</span>
       </div>
       <button class="card-filter-btn" (click)="filtrarPor('Externo')">
@@ -35,11 +39,13 @@
     </div>
 
     <div class="summary-card">
-      <div class="card-icon card-icon--inactive">
-        <img src="icons/user-close-svgrepo-com.svg" class="card-svg" />
-      </div>
-      <div class="card-info">
-        <span class="card-number">{{ totalInactivos }}</span>
+      <div class="card-left">
+        <div class="card-top-row">
+          <div class="card-icon card-icon--inactive">
+            <img src="icons/user-close-svgrepo-com.svg" class="card-svg" />
+          </div>
+          <span class="card-number">{{ totalInactivos }}</span>
+        </div>
         <span class="card-label">Inactivos</span>
       </div>
       <button class="card-filter-btn" (click)="filtrarPor('Inactivo')">
@@ -110,7 +116,7 @@
               </span>
             </td>
             <td>
-<button class="action-btn" [matMenuTriggerFor]="menu" (click)="cerrarDescarga()">
+              <button class="action-btn" [matMenuTriggerFor]="menu" (click)="cerrarDescarga()">
                 <span class="material-icons">more_vert</span>
               </button>
               <mat-menu #menu="matMenu">
