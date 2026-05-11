@@ -2,7 +2,7 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { ModalLider } from './modal-lider/modal-lider';
 import { ModalDetalleLider } from './modal-detalle-lider/modal-detalle-lider';
 import { ModalDescargaComponent } from './modal-descarga/modal-descarga.component';
 import { ModalConfirmacion } from './modal-confirmacion/modal-confirmacion';
+
 export interface Lider {
   codigo: string;
   tipo: 'Interno' | 'Externo';
@@ -41,7 +42,10 @@ export interface Lider {
   templateUrl: './lideres.component.html',
   styleUrls: ['./lideres.component.scss'],
 })
-export class LideresComponent implements OnInit {
+export class LideresComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('tableWrapper') tableWrapper!: ElementRef;
+  @ViewChild('scrollThumb') scrollThumb!: ElementRef;
 
   // ── Data ───────────────────────────────────────────────
   lideres: Lider[] = [
@@ -98,6 +102,19 @@ export class LideresComponent implements OnInit {
     this.aplicarFiltros();
   }
 
+  ngAfterViewInit(): void {
+    const wrapper = this.tableWrapper.nativeElement;
+    const thumb = this.scrollThumb.nativeElement;
+
+    wrapper.addEventListener('scroll', () => {
+      const scrollRatio = wrapper.scrollTop / (wrapper.scrollHeight - wrapper.clientHeight);
+      const trackHeight = thumb.parentElement.clientHeight;
+      const thumbHeight = thumb.clientHeight;
+      const maxTop = trackHeight - thumbHeight;
+      thumb.style.transform = `translateY(${scrollRatio * maxTop}px)`;
+    });
+  }
+
   // ── Contadores cards ───────────────────────────────────
   get totalInternos(): number {
     return this.lideres.filter(l => l.tipo === 'Interno').length;
@@ -150,7 +167,7 @@ export class LideresComponent implements OnInit {
   }
 
   calcularPaginas(): void {
-    const max = Math.min(this.totalPaginas, 5);
+    const max = Math.min(this.totalPaginas, 4);
     const inicio = Math.max(1, Math.min(this.paginaActual - 2, this.totalPaginas - max + 1));
     this.paginas = Array.from({ length: max }, (_, i) => inicio + i);
   }
@@ -190,10 +207,11 @@ export class LideresComponent implements OnInit {
   }
 
   // ── Modal Ver Detalle ──────────────────────────────────
-  verLider(lider: Lider, numero: number): void {
-    this.liderSeleccionado = { ...lider, numero };
-    this.mostrarDetalle = true;
-  }
+ verLider(lider: Lider, numero: number): void {
+  this.mostrarDescarga = false;
+  this.liderSeleccionado = { ...lider, numero };
+  this.mostrarDetalle = true;
+}
 
   cerrarDetalle(): void {
     this.mostrarDetalle = false;
@@ -202,22 +220,23 @@ export class LideresComponent implements OnInit {
 
   // ── Modal Editar ───────────────────────────────────────
   editarLider(lider: Lider): void {
+    this.mostrarDescarga = false;
     this.modoEdicion = true;
     this.liderEditando = lider;
     this.liderForm.patchValue(lider);
     this.mostrarFormulario = true;
   }
 
-guardarLider(): void {
-  this.mensajeConfirmacion = this.modoEdicion
-    ? 'Los cambios han sido<br>guardados exitosamente'
-    : 'El nuevo líder ha sido<br>agregado exitosamente';
+  guardarLider(): void {
+    this.mensajeConfirmacion = this.modoEdicion
+      ? 'Los cambios han sido<br>guardados exitosamente'
+      : 'El nuevo líder ha sido<br>agregado exitosamente';
 
-  this.mostrarConfirmacion = true;
-  setTimeout(() => {
-    this.mostrarConfirmacion = false;
-  }, 3000);
-}
+    this.mostrarConfirmacion = true;
+    setTimeout(() => {
+      this.mostrarConfirmacion = false;
+    }, 3000);
+  }
 
   // ── Modal Descarga ─────────────────────────────────────
   abrirDescarga(): void {
@@ -232,7 +251,8 @@ guardarLider(): void {
     const doc = new jsPDF();
     doc.setTextColor(115, 115, 115);
     doc.text('Lista de Líderes', 14, 16);
-    doc.setTextColor(0, 0, 0); autoTable(doc, {
+    doc.setTextColor(0, 0, 0);
+    autoTable(doc, {
       head: [['#', 'Tipo', 'Nombre', 'Cliente', 'Correo', 'Teléfono', 'Estado']],
       body: this.lideres.map((l, i) => [
         i + 1, l.tipo, l.nombre, l.cliente, l.correo, l.telefono, l.estado

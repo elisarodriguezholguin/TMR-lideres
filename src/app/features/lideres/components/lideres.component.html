@@ -52,8 +52,8 @@
   <div class="search-bar">
     <div class="search-input-wrapper">
       <span class="material-icons search-icon">search</span>
-      <input type="text" class="search-input" placeholder="Buscar por nombres, código..." [(ngModel)]="busqueda"
-        (input)="aplicarFiltros()" />
+      <input type="text" class="search-input" placeholder="Buscar por nombres, código..."
+        [(ngModel)]="busqueda" (input)="aplicarFiltros()" />
     </div>
     <div class="estado-filter-wrapper">
       <img src="icons/circle-plus-svgrepo-com.svg" class="estado-icon-img" />
@@ -69,11 +69,10 @@
         Descargar
         <span class="material-symbols-outlined">file_download</span>
       </button>
-      <app-modal-descarga [mostrar]="mostrarDescarga" (cerrar)="cerrarDescarga()" (descargarPDF)="descargarPDF()"
-        (descargarExcel)="descargarExcel()">
+      <app-modal-descarga [mostrar]="mostrarDescarga" (cerrar)="cerrarDescarga()"
+        (descargarPDF)="descargarPDF()" (descargarExcel)="descargarExcel()">
       </app-modal-descarga>
     </div>
-
     <button class="btn btn-primary" (click)="abrirFormulario()">
       Agregar
       <span class="material-icons">add</span>
@@ -81,55 +80,60 @@
   </div>
 
   <!-- Tabla -->
-  <div class="table-wrapper">
-    <table class="lideres-table">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Tipo</th>
-          <th>Nombre</th>
-          <th>Cliente</th>
-          <th>Correo electrónico</th>
-          <th>Teléfono</th>
-          <th>Estado</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let lider of lideresPaginados; let i = index">
-          <td>{{ lider.codigo }}</td>
-          <td>{{ lider.tipo }}</td>
-          <td>{{ lider.nombre }}</td>
-          <td>{{ lider.cliente }}</td>
-          <td>{{ lider.correo }}</td>
-          <td>{{ lider.telefono }}</td>
-          <td>
-            <span class="badge" [class.badge--activo]="lider.estado === 'Activo'"
-              [class.badge--inactivo]="lider.estado !== 'Activo'">
-              {{ lider.estado }}
-            </span>
-          </td>
-          <td>
-            <button class="action-btn" [matMenuTriggerFor]="menu">
-              <span class="material-icons">more_vert</span>
-            </button>
-            <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="verLider(lider, rangoInicio + i)">
-    <span class="material-symbols-outlined">visibility</span>
-    Ver más
-  </button>
-  <button mat-menu-item (click)="editarLider(lider)">
-    <span class="material-symbols-outlined">edit_square</span>
-    Editar
-  </button>
-</mat-menu>
-          </td>
-        </tr>
-        <tr *ngIf="lideresFiltrados.length === 0">
-          <td colspan="8" class="empty-state">No se encontraron líderes</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="table-scroll-container">
+    <div class="table-wrapper" #tableWrapper>
+      <table class="lideres-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Cliente</th>
+            <th>Correo electrónico</th>
+            <th>Teléfono</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lider of lideresPaginados; let i = index">
+            <td>{{ lider.codigo }}</td>
+            <td>{{ lider.tipo }}</td>
+            <td>{{ lider.nombre }}</td>
+            <td>{{ lider.cliente }}</td>
+            <td>{{ lider.correo }}</td>
+            <td>{{ lider.telefono }}</td>
+            <td>
+              <span class="badge" [class.badge--activo]="lider.estado === 'Activo'"
+                [class.badge--inactivo]="lider.estado !== 'Activo'">
+                {{ lider.estado }}
+              </span>
+            </td>
+            <td>
+<button class="action-btn" [matMenuTriggerFor]="menu" (click)="cerrarDescarga()">
+                <span class="material-icons">more_vert</span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="verLider(lider, rangoInicio + i)">
+                  <span class="material-symbols-outlined">visibility</span>
+                  Ver más
+                </button>
+                <button mat-menu-item (click)="editarLider(lider)">
+                  <span class="material-symbols-outlined">edit_square</span>
+                  Editar
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+          <tr *ngIf="lideresFiltrados.length === 0">
+            <td colspan="8" class="empty-state">No se encontraron líderes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="custom-scrollbar">
+      <div class="scroll-thumb" #scrollThumb></div>
+    </div>
   </div>
 
   <!-- Paginación -->
@@ -146,8 +150,8 @@
         <button class="page-btn" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
           <span class="material-icons">chevron_left</span>
         </button>
-        <button *ngFor="let p of paginas" class="page-btn page-number" [class.page-btn--active]="p === paginaActual"
-          (click)="irPagina(p)">{{ p }}</button>
+        <button *ngFor="let p of paginas" class="page-btn page-number"
+          [class.page-btn--active]="p === paginaActual" (click)="irPagina(p)">{{ p }}</button>
         <button class="page-btn" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
           <span class="material-icons">chevron_right</span>
         </button>
@@ -160,11 +164,12 @@
 
 </div>
 
-<app-modal-lider *ngIf="mostrarFormulario" [mostrarFormulario]="mostrarFormulario" [modoEdicion]="modoEdicion"
-  (cerrarModal)="cerrarFormulario()" (guardar)="guardarLider()">
+<app-modal-lider *ngIf="mostrarFormulario" [mostrarFormulario]="mostrarFormulario"
+  [modoEdicion]="modoEdicion" (cerrarModal)="cerrarFormulario()" (guardar)="guardarLider()">
 </app-modal-lider>
 
-<app-modal-detalle-lider *ngIf="mostrarDetalle" [lider]="liderSeleccionado" (cerrarModal)="mostrarDetalle = false">
+<app-modal-detalle-lider *ngIf="mostrarDetalle" [lider]="liderSeleccionado"
+  (cerrarModal)="mostrarDetalle = false">
 </app-modal-detalle-lider>
 
 <app-modal-confirmacion [mostrar]="mostrarConfirmacion" [mensaje]="mensajeConfirmacion">

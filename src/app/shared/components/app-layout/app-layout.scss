@@ -27,7 +27,7 @@ $white: #ffffff;
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   overflow-x: hidden;
   min-height: 0;
 }

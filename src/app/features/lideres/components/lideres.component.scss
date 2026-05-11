@@ -19,8 +19,8 @@ $hover-row: rgba(#163572, 0.04);
   flex-direction: column;
   box-sizing: border-box;
   min-height: 0;
+  overflow: hidden;
 }
-
 .page-header {
   display: flex;
   align-items: center;
@@ -64,6 +64,7 @@ $hover-row: rgba(#163572, 0.04);
 
   .material-icons { font-size: 18px; }
   .material-symbols-outlined { font-size: 18px; }
+
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 
   &.btn-primary {
@@ -104,7 +105,7 @@ $hover-row: rgba(#163572, 0.04);
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 1px 0 0 rgba(0,0,0,0.05);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s;
   box-sizing: border-box;
 
@@ -242,6 +243,16 @@ $hover-row: rgba(#163572, 0.04);
   flex: 1;
 }
 
+// Wrapper externo para tabla + scrollbar
+.table-scroll-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+  overflow: hidden;
+}
+
 .table-wrapper {
   background: $white;
   border-radius: 10px;
@@ -251,9 +262,27 @@ $hover-row: rgba(#163572, 0.04);
   flex: 1;
   min-height: 0;
 
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: #D4D4D4; border-radius: 4px; }
+  // oculta scrollbar nativo
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Scrollbar personalizado externo
+.custom-scrollbar {
+  width: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  .scroll-thumb {
+    width: 4px;
+    height: 40%;
+    background: #D4D4D4;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 }
 
 .lideres-table {
@@ -451,13 +480,8 @@ $hover-row: rgba(#163572, 0.04);
     vertical-align: middle !important;
   }
 
-  &:first-child {
-    background-color: #f3f4f6 !important;
-  }
-
-  &:hover {
-    background-color: #f3f4f6 !important;
-  }
+  &:first-child { background-color: #f3f4f6 !important; }
+  &:hover { background-color: #f3f4f6 !important; }
 }
 // ─────────────────────────────────────────────────────────────
 
