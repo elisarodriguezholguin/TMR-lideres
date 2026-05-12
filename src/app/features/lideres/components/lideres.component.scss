@@ -268,8 +268,22 @@ $hover-row: rgba(#163572, 0.04);
   overflow-x: hidden;
   flex: 1;
   min-height: 0;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+  scrollbar-width: thin;
+  scrollbar-color: #D4D4D4 transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #D4D4D4;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;
+  }
 }
 
 // Scrollbar personalizado externo
