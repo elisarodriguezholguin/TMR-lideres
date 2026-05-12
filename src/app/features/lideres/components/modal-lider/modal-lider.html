@@ -19,34 +19,47 @@
         Información General
       </div>
 
+      <!-- Estado solo en edición -->
       <div class="form-row" *ngIf="modoEdicion">
-        <div class="select-wrapper select-wrapper--half" [class.input-error]="enviado && !form.estado">
-          <select class="form-input" [(ngModel)]="form.estado">
-            <option value="">Estado</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
+        <div class="custom-select-wrapper select-wrapper--half" [class.input-error]="enviado && !form.estado">
+          <div class="custom-select" (click)="toggleDropdown('estado', $event)" [class.open]="dropdownAbierto === 'estado'">
+            <span class="custom-select-value" [class.placeholder]="!form.estado">{{ form.estado || 'Estado' }}</span>
+            <span class="material-icons custom-select-arrow">expand_more</span>
+          </div>
+          <ul class="custom-select-options" *ngIf="dropdownAbierto === 'estado'">
+            <li (click)="seleccionar('estado', 'Activo', $event)">Activo</li>
+            <li (click)="seleccionar('estado', 'Inactivo', $event)">Inactivo</li>
+          </ul>
           <span class="error-msg" *ngIf="enviado && !form.estado">Campo requerido</span>
         </div>
       </div>
 
       <div class="form-row">
-        <div class="select-wrapper" [class.input-error]="enviado && !form.tipo">
-          <select class="form-input" [(ngModel)]="form.tipo">
-            <option value="">Tipo de líder</option>
-            <option value="Interno">Interno</option>
-            <option value="Externo">Externo</option>
-          </select>
+        <!-- Tipo de líder -->
+        <div class="custom-select-wrapper" [class.input-error]="enviado && !form.tipo">
+          <div class="custom-select" (click)="toggleDropdown('tipo', $event)" [class.open]="dropdownAbierto === 'tipo'">
+            <span class="custom-select-value" [class.placeholder]="!form.tipo">{{ form.tipo || 'Tipo de líder' }}</span>
+            <span class="material-icons custom-select-arrow">expand_more</span>
+          </div>
+          <ul class="custom-select-options" *ngIf="dropdownAbierto === 'tipo'">
+            <li (click)="seleccionar('tipo', 'Interno', $event)">Interno</li>
+            <li (click)="seleccionar('tipo', 'Externo', $event)">Externo</li>
+          </ul>
           <span class="error-msg" *ngIf="enviado && !form.tipo">Campo requerido</span>
         </div>
-        <div class="select-wrapper" [class.input-error]="enviado && !form.persona">
-          <select class="form-input" [(ngModel)]="form.persona">
-            <option value="">Persona</option>
-            <option value="1">Maribel Sofía Cabezas Paredes</option>
-            <option value="2">Leonel Pablo Catro Jiménez</option>
-            <option value="3">Diego Armando Maradona Carchi</option>
-            <option value="4">Óscar Mario Suárez Torres</option>
-          </select>
+
+        <!-- Persona -->
+        <div class="custom-select-wrapper" [class.input-error]="enviado && !form.persona">
+          <div class="custom-select" (click)="toggleDropdown('persona', $event)" [class.open]="dropdownAbierto === 'persona'">
+            <span class="custom-select-value" [class.placeholder]="!form.persona">{{ getPersonaNombre() || 'Persona' }}</span>
+            <span class="material-icons custom-select-arrow">expand_more</span>
+          </div>
+          <ul class="custom-select-options" *ngIf="dropdownAbierto === 'persona'">
+            <li (click)="seleccionar('persona', '1', $event)">Maribel Sofía Cabezas Paredes</li>
+            <li (click)="seleccionar('persona', '2', $event)">Leonel Pablo Catro Jiménez</li>
+            <li (click)="seleccionar('persona', '3', $event)">Diego Armando Maradona Carchi</li>
+            <li (click)="seleccionar('persona', '4', $event)">Óscar Mario Suárez Torres</li>
+          </ul>
           <span class="error-msg" *ngIf="enviado && !form.persona">Campo requerido</span>
         </div>
       </div>

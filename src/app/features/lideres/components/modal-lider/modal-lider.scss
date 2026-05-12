@@ -3,15 +3,12 @@ $primary-dark: #162C56;
 $white: #ffffff;
 $border: #E5E5E5;
 $text-dark: #1a1a2e;
-$text-mid: #4a4a6a;
 $text-light: #7C7C7C;
 
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background: rgba(22, 44, 86, 0.55);
   z-index: 99999;
   display: flex;
@@ -20,9 +17,9 @@ $text-light: #7C7C7C;
 }
 
 .modal-card {
-  background: #ffffff;
-  border-radius: 16px;
-  width: 560px;
+  background: $white;
+  border-radius: 20px;
+  width: 660px;
   max-width: 90vw;
   max-height: 85vh;
   overflow-y: auto;
@@ -35,7 +32,7 @@ $text-light: #7C7C7C;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 28px 28px 16px;
+  padding: 46px 33px 16px;
 }
 
 .modal-title {
@@ -44,6 +41,9 @@ $text-light: #7C7C7C;
   color: $primary;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  text-align: left;
+  line-height: 36px;
+  white-space: nowrap;
 }
 
 .modal-close {
@@ -55,13 +55,12 @@ $text-light: #7C7C7C;
   align-items: center;
   padding: 4px;
   border-radius: 6px;
-
   .material-icons { font-size: 20px; }
   &:hover { background: $border; }
 }
 
 .modal-body {
-  padding: 0 28px 28px;
+  padding: 0 33px 33px;
   overflow: visible;
 }
 
@@ -71,7 +70,7 @@ $text-light: #7C7C7C;
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: $text-dark;
+  color: $primary;
   margin-bottom: 16px;
   margin-top: 8px;
 }
@@ -90,30 +89,15 @@ $text-light: #7C7C7C;
   margin-bottom: 16px;
 }
 
-.select-wrapper {
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  position: relative;
-
-  &::after {
-    content: '❯';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    color: #737373;
-    font-size: 12px;
-    pointer-events: none;
-  }
-
-  &--half {
-    flex: 0 0 calc(50% - 8px);
-    max-width: calc(50% - 8px);
-  }
 }
 
 .form-input {
   width: 100%;
-  padding: 10px 30px 10px 13px;
+  padding: 10px 13px;
   border: 1px solid $border;
   border-radius: 8px;
   font-size: 14px;
@@ -121,13 +105,87 @@ $text-light: #7C7C7C;
   background: $white;
   outline: none;
   box-sizing: border-box;
-  appearance: none;
   transition: border-color 0.18s;
-
   &::placeholder { color: #737373; }
   &:focus { border-color: $primary; }
+}
 
-  option { color: #737373; }
+.custom-select-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &--half {
+    flex: 0 0 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+  }
+}
+
+.custom-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 13px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.18s;
+  user-select: none;
+
+  &:hover { border-color: #c0c0c0; }
+  &.open { border-color: $primary; }
+}
+
+.custom-select-value {
+  color: $text-dark;
+  &.placeholder { color: #737373; }
+}
+
+.custom-select-arrow {
+  font-size: 18px;
+  color: #737373;
+  transition: transform 0.2s;
+  .open & { transform: rotate(180deg); }
+}
+
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  z-index: 99999;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow: hidden;
+
+  li {
+  padding: 6px 8px;
+  margin: 2px 6px;
+  font-size: 14px;
+  color: #737373;
+  cursor: pointer;
+  border-radius: 6px;
+  &:hover { background: #d9d9d9; color: #737373; }
+}
+}
+
+.input-error .custom-select,
+.input-error .form-input {
+  border-color: #ef4444 !important;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 3px;
 }
 
 .button-container {
@@ -139,7 +197,6 @@ $text-light: #7C7C7C;
 .btn-guardar {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   background: $primary;
   color: $white;
@@ -150,22 +207,11 @@ $text-light: #7C7C7C;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.18s;
-
   .material-icons { font-size: 16px; }
   &:hover { background: $primary-dark; }
 }
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
 
-.input-error .form-input {
-  border-color: #ef4444 !important;
-}
-
-.error-msg {
-  color: #ef4444;
-  font-size: 11px;
-  margin-top: 3px;
+.select-wrapper--half {
+  flex: 0 0 calc(50% - 8px);
+  max-width: calc(50% - 8px);
 }
