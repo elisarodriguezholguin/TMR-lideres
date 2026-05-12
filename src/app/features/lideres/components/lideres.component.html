@@ -168,7 +168,7 @@
       <span class="pagination-page-info">Página {{ paginaActual }} de {{ totalPaginas }}</span>
       <div class="pagination-controls">
         <button class="page-btn" (click)="irPagina(1)" [disabled]="paginaActual === 1">
-          <span class="material-icons">first_page</span>
+          <span class="material-icons">keyboard_double_arrow_left</span>
         </button>
         <button class="page-btn" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
           <span class="material-icons">chevron_left</span>
@@ -179,7 +179,7 @@
           <span class="material-icons">chevron_right</span>
         </button>
         <button class="page-btn" (click)="irPagina(totalPaginas)" [disabled]="paginaActual === totalPaginas">
-          <span class="material-icons">last_page</span>
+          <span class="material-icons">keyboard_double_arrow_right</span>
         </button>
       </div>
     </div>

@@ -372,7 +372,7 @@ $hover-row: rgba(#163572, 0.04);
   align-items: center;
   justify-content: space-between;
   padding: 12px 0 0;
-  border-top: 1px solid $border;
+  border-top: none;
   margin-top: 8px;
   flex-shrink: 0;
 }
@@ -404,9 +404,9 @@ $hover-row: rgba(#163572, 0.04);
   min-width: 32px;
   height: 32px;
   border-radius: 6px;
-  border: 1px solid $border;
-  background: $white;
-  color: $text-mid;
+  border: none;
+  background: transparent;
+  color: $text-light;
   cursor: pointer;
   font-size: 13px;
   display: flex;
@@ -417,9 +417,14 @@ $hover-row: rgba(#163572, 0.04);
 
   .material-icons { font-size: 16px; }
 
-  &:hover:not(:disabled) { border-color: $primary; color: $primary; }
+  &:hover:not(:disabled) { background: $secondary; color: $primary; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
-  &--active { background: $primary; border-color: $primary; color: $white; }
+  &--active {
+    background: $primary;
+    border: none;
+    color: $white;
+    border-radius: 6px;
+  }
 }
 
 .card-svg {
